@@ -14,7 +14,7 @@ def _silent_console() -> Console:
     return Console(file=io.StringIO())
 
 
-def test_readme_basic_multi_task_example():
+def test_結合_README記載の基本サンプルが_複数タスクを扱った場合_期待通りに動作する():
     with ProgressDisplay(console=_silent_console()) as display:
         download_task = display.add_task("ダウンロード", total=100.0)
         convert_task = display.add_task("変換", total=50.0)
@@ -27,7 +27,7 @@ def test_readme_basic_multi_task_example():
         assert tasks[convert_task].completed == 25.0
 
 
-def test_readme_track_helper_example():
+def test_結合_README記載のtrackヘルパーサンプルが_シーケンスを処理した場合_期待通りに動作する():
     processed = []
     with ProgressDisplay(console=_silent_console()) as display:
         for item in display.track(range(5), description="処理中"):
@@ -36,7 +36,7 @@ def test_readme_track_helper_example():
     assert processed == list(range(5))
 
 
-def test_readme_pyproject_toml_config_example(tmp_path):
+def test_結合_README記載のpyproject_toml設定サンプルが_読み込まれた場合_期待通りの設定値になる(tmp_path):
     pyproject_text = textwrap.dedent("""
         [tool.python_util.progress_display]
         auto_remove_finished = true

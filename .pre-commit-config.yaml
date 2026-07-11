@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: pytest-full-suite
+        name: pdm run pytest (full suite) and stage test evidence
+        entry: bash -c 'pdm run pytest && git add reports/test-evidence.md'
+        language: system
+        pass_filenames: false
+        always_run: true

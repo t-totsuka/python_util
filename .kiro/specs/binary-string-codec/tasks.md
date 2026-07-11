@@ -1,6 +1,6 @@
 # Implementation Plan
 
-- [ ] 1. Foundation: サブパッケージの雛形とテスト基盤、共有例外の整備
+- [x] 1. Foundation: サブパッケージの雛形とテスト基盤、共有例外の整備
 - [x] 1.1 サブパッケージとテストディレクトリの雛形作成
   - `src/python_util/binary_string_codec/` 配下に `envelope`, `compression`, `bytes_codec`, `object_codec`, `__init__` の空モジュールを作成し、パッケージとしてimport可能な状態にする
   - `tests/binary_string_codec/` 配下に `test_envelope.py`, `test_compression.py`, `test_bytes_codec.py`, `test_object_codec.py`, `test_exceptions.py`, `test_public_api.py` の雛形と `__init__.py` を作成する
@@ -13,7 +13,7 @@
   - Observable: `pytest tests/binary_string_codec/test_exceptions.py` の全テストがパスする
   - _Requirements: 4.3, 4.4, 5.3, 5.4, 6.2, 6.3_
 
-- [ ] 2. Core: 基盤コーデック機能（envelope/compression）の実装
+- [x] 2. Core: 基盤コーデック機能（envelope/compression）の実装
 - [x] 2.1 (P) envelopeのヘッダpack/unpack実装
   - マジックバイト・バージョン・フラグ（圧縮有無／ペイロード種別）からなる固定ヘッダと可変長ペイロードをpack/unpackする関数、および `_PayloadKind`（BYTES/OBJECT）を実装する
   - マジックバイト不一致・バージョン不一致・フラグ予約ビット非ゼロ・呼び出し元が期待するペイロード種別との不一致のいずれかを検出した場合に `BinaryStringDecodeError` を送出する
@@ -29,7 +29,7 @@
   - _Requirements: 3.2, 3.3, 3.5, 3.6, 6.2_
   - _Boundary: compression_
 
-- [ ] 3. Core: bytesおよびオブジェクトコーデックの実装
+- [x] 3. Core: bytesおよびオブジェクトコーデックの実装
 - [x] 3.1 (P) bytes_codecのencode_bytes/decode_bytes実装
   - `encode_bytes` は `bytes` 型以外の入力で `TypeError` を送出し、`compression` による圧縮要否判定と `envelope` によるヘッダ付与を経て、Base85エンコードした `str` を返す
   - `decode_bytes` は `str` 型以外の入力で `TypeError` を送出し、Base85デコード後に `envelope` でペイロード種別が `BYTES` であることを検証した上で元の `bytes` を復元する
@@ -54,7 +54,7 @@
   - _Requirements: 6.1, 6.2, 6.4_
   - _Depends: 3.1, 3.2_
 
-- [ ] 5. Validation: 異常系の統合検証と圧縮効果の回帰テスト
+- [x] 5. Validation: 異常系の統合検証と圧縮効果の回帰テスト
 - [x] 5.1 (P) デコード時の種別不一致・破損データ検出の統合テスト
   - `decode_bytes` に `encode_object` の出力を渡した場合、および `decode_object` に `encode_bytes` の出力を渡した場合の双方で `BinaryStringDecodeError` が送出されることを検証する
   - Base85デコード不能な文字列、およびenvelopeヘッダが途中で切断された文字列を `decode_bytes`/`decode_object` に渡した場合に `BinaryStringDecodeError` が送出されることを検証する

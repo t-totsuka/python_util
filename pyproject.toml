@@ -2,17 +2,11 @@
 name = "python_util"
 version = "0.1.0"
 description = "Default template for PDM package"
-authors = [
-    {name = "takumi, Totsuka",email = "takumi.totsuka@gmail.com"},
-]
-dependencies = [
-    "rich>=13.0.0",
-    "tzdata>=2024.1; sys_platform == \"win32\"",
-]
+authors = [{ name = "takumi, Totsuka", email = "takumi.totsuka@gmail.com" }]
+dependencies = ["rich>=13.0.0", "tzdata>=2024.1; sys_platform == \"win32\""]
 requires-python = ">=3.11"
 readme = "README.md"
-license = {text = "MIT"}
-
+license = { text = "MIT" }
 
 [tool.pdm]
 distribution = true
@@ -22,6 +16,37 @@ requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
 [dependency-groups]
-test = [
-    "pytest>=9.1.1",
+test = ["pytest>=9.1.1", "pytest-cov>=7.1.0"]
+lint = ["ruff>=0.15.21"]
+dev = ["pre-commit>=4.6.0"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=src/python_util --cov-report=html:reports/coverage_html --cov-report=term-missing"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors
+    "F", # pyflakes
+    "I", # isort
+    "UP", # pyupgrade
+    "B", # flake8-bugbear
+
 ]
+
+[tool.ruff.lint.isort]
+known-first-party = ["python_util"]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["E501"]

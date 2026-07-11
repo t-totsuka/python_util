@@ -3,6 +3,6 @@
 import importlib
 
 
-def test_time_utility_package_is_importable():
+def test_単体正常系_time_utilityパッケージが_インポートされた場合_モジュールとして取得できる():
     module = importlib.import_module("python_util.time_utility")
     assert module is not None

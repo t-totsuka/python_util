@@ -22,7 +22,7 @@ def reset_factory_state():
     factory_module._reset_registry()
 
 
-def test_get_logger_falls_back_to_console_only_when_no_pyproject_toml(
+def test_結合_get_loggerが_pyproject_tomlが存在しない場合_コンソール出力のみにフォールバックする(
     tmp_path, monkeypatch
 ):
     monkeypatch.chdir(tmp_path)
@@ -34,7 +34,7 @@ def test_get_logger_falls_back_to_console_only_when_no_pyproject_toml(
     assert isinstance(logger.handlers[0], RichHandler)
 
 
-def test_get_logger_falls_back_to_default_on_toml_syntax_error(tmp_path, monkeypatch):
+def test_異常系_get_loggerが_TOML構文エラーが存在する場合_警告を出しデフォルト設定にフォールバックする(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     (tmp_path / "pyproject.toml").write_text("this is not valid toml [[[")
 
@@ -46,7 +46,7 @@ def test_get_logger_falls_back_to_default_on_toml_syntax_error(tmp_path, monkeyp
     assert isinstance(logger.handlers[0], RichHandler)
 
 
-def test_get_logger_falls_back_to_default_on_unknown_level_string(
+def test_異常系_get_loggerが_未知のログレベル文字列が設定された場合_警告を出しデフォルトレベルにフォールバックする(
     tmp_path, monkeypatch
 ):
     monkeypatch.chdir(tmp_path)
@@ -62,7 +62,7 @@ def test_get_logger_falls_back_to_default_on_unknown_level_string(
     assert logger.handlers[0].level == logging.INFO
 
 
-def test_get_logger_continues_with_console_only_when_directory_creation_fails(
+def test_異常系_get_loggerが_ログディレクトリ作成に失敗した場合_警告を出しコンソール出力のみを継続する(
     tmp_path, monkeypatch
 ):
     monkeypatch.chdir(tmp_path)

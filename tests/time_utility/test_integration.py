@@ -16,7 +16,7 @@ from python_util.time_utility import (
 )
 
 
-def test_now_format_iso_parse_round_trip_preserves_original_value():
+def test_結合_nowとformat_datetimeとparse_datetimeが_ISO形式で往復変換した場合_元の値を保つ():
     original = now()
 
     formatted = format_datetime(original, DateTimeFormat.ISO)
@@ -26,7 +26,7 @@ def test_now_format_iso_parse_round_trip_preserves_original_value():
     assert parsed.tzinfo is not None
 
 
-def test_now_format_parse_round_trip_without_explicit_fmt_uses_iso_priority():
+def test_結合_nowとformat_datetimeとparse_datetimeが_fmtを指定せず往復変換した場合_ISO形式を優先して元の値を保つ():
     original = now()
 
     formatted = format_datetime(original, DateTimeFormat.ISO)
@@ -35,7 +35,7 @@ def test_now_format_parse_round_trip_without_explicit_fmt_uses_iso_priority():
     assert parsed == original
 
 
-def test_now_format_datetime_parse_round_trip_matches_second_precision():
+def test_結合_nowとformat_datetimeとparse_datetimeが_DATETIME形式で往復変換した場合_秒精度で一致する():
     original = now().replace(microsecond=0)
 
     formatted = format_datetime(original, DateTimeFormat.DATETIME)
@@ -44,7 +44,7 @@ def test_now_format_datetime_parse_round_trip_matches_second_precision():
     assert parsed == original
 
 
-def test_now_format_japanese_datetime_parse_round_trip_matches_second_precision():
+def test_結合_nowとformat_datetimeとparse_datetimeが_JAPANESE_DATETIME形式で往復変換した場合_秒精度で一致する():
     original = now().replace(microsecond=0)
 
     formatted = format_datetime(original, DateTimeFormat.JAPANESE_DATETIME)
@@ -53,7 +53,7 @@ def test_now_format_japanese_datetime_parse_round_trip_matches_second_precision(
     assert parsed == original
 
 
-def test_now_with_explicit_timezone_format_parse_round_trip_preserves_offset():
+def test_結合_nowとformat_datetimeとparse_datetimeが_明示的なタイムゾーンで往復変換した場合_UTCオフセットを保つ():
     original = now(tz="America/New_York")
 
     formatted = format_datetime(original, DateTimeFormat.ISO)
@@ -63,7 +63,7 @@ def test_now_with_explicit_timezone_format_parse_round_trip_preserves_offset():
     assert parsed.utcoffset() == original.utcoffset()
 
 
-def test_to_utc_to_jst_round_trip_preserves_original_value():
+def test_結合_to_utcとto_jstが_nowの結果を往復変換した場合_元の値を保つ():
     original = now()
 
     converted = to_jst(to_utc(original))
@@ -80,6 +80,6 @@ def test_to_utc_to_jst_round_trip_preserves_original_value():
         lambda: parse_datetime("2026-07-11 10:00:00", tz="Asia/Tokio"),
     ],
 )
-def test_invalid_timezone_name_raises_invalid_timezone_error_consistently(invoke):
+def test_異常系_now_to_timezone_parse_datetimeが_未知のタイムゾーン名を指定された場合_一貫してInvalidTimezoneErrorを送出する(invoke):
     with pytest.raises(InvalidTimezoneError):
         invoke()

@@ -19,7 +19,7 @@ def _silent_console() -> Console:
     return Console(file=io.StringIO())
 
 
-def test_public_api_exports_expected_names():
+def test_単体正常系_progress_displayパッケージが_公開APIとして_期待される名前をエクスポートする():
     import python_util.progress_display as public_api
 
     assert set(public_api.__all__) == {
@@ -32,7 +32,7 @@ def test_public_api_exports_expected_names():
     }
 
 
-def test_full_workflow_using_only_top_level_imports():
+def test_結合_progress_displayのトップレベルAPIのみを使用した場合_一連のワークフローが完結する():
     config = ProgressDisplayConfig(auto_remove_finished=True)
 
     with ProgressDisplay(config=config, console=_silent_console()) as display:

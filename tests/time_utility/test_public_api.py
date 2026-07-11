@@ -1,7 +1,7 @@
 """python_util.time_utility パッケージの公開APIが集約されていることを確認するテスト。"""
 
 
-def test_public_api_symbols_are_importable_from_package_root():
+def test_単体正常系_time_utilityパッケージの公開APIが_ルートからインポートされた場合_全てのシンボルを取得できる():
     from python_util.time_utility import (
         JST,
         DateTimeFormat,
@@ -27,7 +27,7 @@ def test_public_api_symbols_are_importable_from_package_root():
     assert DateTimeParseError is not None
 
 
-def test_public_api_round_trip_uses_reexported_symbols():
+def test_結合_time_utilityパッケージの再エクスポートされたシンボルが_往復変換に使用された場合_元の値を保つ():
     from python_util.time_utility import DateTimeFormat, format_datetime, now, parse_datetime
 
     original = now()

@@ -16,17 +16,23 @@ def _base64_length(data: bytes) -> int:
 
 
 class TestCompressibleDataBeatsBase64:
-    def test_text_repeat_sample_is_smaller_than_base64(self) -> None:
+    def test_結合_encode_bytesが_繰り返しテキストデータを受け取った場合_base64エンコードよりも短い文字列を返す(
+        self,
+    ) -> None:
         encoded = encode_bytes(_TEXT_REPEAT_SAMPLE)
         assert len(encoded) < _base64_length(_TEXT_REPEAT_SAMPLE)
 
-    def test_prose_sample_is_smaller_than_base64(self) -> None:
+    def test_結合_encode_bytesが_日本語文章データを受け取った場合_base64エンコードよりも短い文字列を返す(
+        self,
+    ) -> None:
         encoded = encode_bytes(_PROSE_SAMPLE)
         assert len(encoded) < _base64_length(_PROSE_SAMPLE)
 
 
 class TestIncompressibleDataFallsBackToRawBase85Size:
-    def test_random_data_stays_at_uncompressed_base85_size(self) -> None:
+    def test_結合_encode_bytesが_非圧縮性のランダムデータを受け取った場合_非圧縮時のbase85サイズと一致する(
+        self,
+    ) -> None:
         random_payload = random.Random(42).randbytes(2000)
         encoded = encode_bytes(random_payload)
         expected_length = len(

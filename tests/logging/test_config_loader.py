@@ -14,7 +14,7 @@ def _write(path: Path, content: str) -> None:
     path.write_text(textwrap.dedent(content))
 
 
-def test_load_config_returns_default_when_no_pyproject_toml_found(tmp_path):
+def test_単体正常系_load_configが_pyproject_tomlが見つからない場合_デフォルト設定を返す(tmp_path):
     start_dir = tmp_path / "no_pyproject"
     start_dir.mkdir()
 
@@ -23,7 +23,7 @@ def test_load_config_returns_default_when_no_pyproject_toml_found(tmp_path):
     assert config == LoggingConfig()
 
 
-def test_load_config_returns_default_when_table_absent(tmp_path):
+def test_単体正常系_load_configが_toolテーブルが存在しない場合_デフォルト設定を返す(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [project]
         name = "sample"
@@ -34,7 +34,7 @@ def test_load_config_returns_default_when_table_absent(tmp_path):
     assert config == LoggingConfig()
 
 
-def test_load_config_parses_full_table(tmp_path):
+def test_単体正常系_load_configが_完全な設定テーブルを受け取った場合_全項目を解析する(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.logging]
         level = "DEBUG"
@@ -64,7 +64,7 @@ def test_load_config_parses_full_table(tmp_path):
     }
 
 
-def test_load_config_falls_back_on_toml_syntax_error(tmp_path):
+def test_異常系_load_configが_TOML構文エラーを含む場合_警告を出しデフォルト設定にフォールバックする(tmp_path):
     _write(tmp_path / "pyproject.toml", "this is not valid toml [[[")
 
     with pytest.warns(UserWarning):
@@ -73,7 +73,7 @@ def test_load_config_falls_back_on_toml_syntax_error(tmp_path):
     assert config == LoggingConfig()
 
 
-def test_load_config_falls_back_on_unknown_level_string(tmp_path):
+def test_異常系_load_configが_未知のログレベル文字列を受け取った場合_警告を出しデフォルト設定にフォールバックする(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.logging]
         level = "NOT_A_LEVEL"
@@ -85,7 +85,7 @@ def test_load_config_falls_back_on_unknown_level_string(tmp_path):
     assert config == LoggingConfig()
 
 
-def test_load_config_searches_parent_directories(tmp_path):
+def test_単体正常系_load_configが_子ディレクトリから開始した場合_親ディレクトリのpyproject_tomlを探索する(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.logging]
         level = "ERROR"
@@ -98,7 +98,7 @@ def test_load_config_searches_parent_directories(tmp_path):
     assert config.default_level == logging.ERROR
 
 
-def test_load_config_only_considers_first_found_pyproject(tmp_path):
+def test_境界_load_configが_複数階層にpyproject_tomlが存在する場合_最初に見つかったもののみを考慮する(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.logging]
         level = "ERROR"
@@ -115,7 +115,7 @@ def test_load_config_only_considers_first_found_pyproject(tmp_path):
     assert config == LoggingConfig()
 
 
-def test_resolve_logger_override_longest_prefix_match():
+def test_単体正常系_resolve_logger_overrideが_複数のプレフィックスに一致する場合_最長一致のオーバーライドを返す():
     config = LoggingConfig(
         loggers={
             "myapp": LoggerOverride(level=logging.WARNING),
@@ -128,7 +128,7 @@ def test_resolve_logger_override_longest_prefix_match():
     assert override == LoggerOverride(level=logging.DEBUG)
 
 
-def test_resolve_logger_override_no_match_returns_none():
+def test_単体正常系_resolve_logger_overrideが_一致するロガー名がない場合_Noneを返す():
     config = LoggingConfig(loggers={"myapp": LoggerOverride(level=logging.WARNING)})
 
     override = resolve_logger_override(config, "otherapp.io")

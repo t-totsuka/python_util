@@ -10,11 +10,11 @@ from python_util.progress_display.exceptions import (
 )
 
 
-def test_unknown_task_error_is_value_error():
+def test_単体正常系_UnknownTaskErrorが_定義された場合_ValueErrorのサブクラスである():
     assert issubclass(UnknownTaskError, ValueError)
 
 
-def test_unknown_task_error_message_contains_task_id():
+def test_単体正常系_UnknownTaskErrorが_タスクIDを渡されて送出された場合_メッセージにタスクIDを含む():
     task_id = 42
 
     with pytest.raises(UnknownTaskError) as exc_info:
@@ -23,11 +23,11 @@ def test_unknown_task_error_message_contains_task_id():
     assert str(task_id) in str(exc_info.value)
 
 
-def test_invalid_total_error_is_value_error():
+def test_単体正常系_InvalidTotalErrorが_定義された場合_ValueErrorのサブクラスである():
     assert issubclass(InvalidTotalError, ValueError)
 
 
-def test_invalid_total_error_message_contains_total():
+def test_単体正常系_InvalidTotalErrorが_不正なtotalを渡されて送出された場合_メッセージにtotalを含む():
     invalid_total = -1
 
     with pytest.raises(InvalidTotalError) as exc_info:
@@ -36,15 +36,15 @@ def test_invalid_total_error_message_contains_total():
     assert str(invalid_total) in str(exc_info.value)
 
 
-def test_display_not_started_error_is_value_error():
+def test_単体正常系_DisplayNotStartedErrorが_定義された場合_ValueErrorのサブクラスである():
     assert issubclass(DisplayNotStartedError, ValueError)
 
 
-def test_display_not_started_error_can_be_raised_without_arguments():
+def test_単体正常系_DisplayNotStartedErrorが_引数なしで送出された場合_例外として送出できる():
     with pytest.raises(DisplayNotStartedError):
         raise DisplayNotStartedError()
 
 
-def test_invalid_progress_display_config_is_not_value_error():
+def test_単体正常系_InvalidProgressDisplayConfigが_定義された場合_ValueErrorでないException派生である():
     assert issubclass(_InvalidProgressDisplayConfig, Exception)
     assert not issubclass(_InvalidProgressDisplayConfig, ValueError)

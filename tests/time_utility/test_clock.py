@@ -11,19 +11,19 @@ from python_util.time_utility.exceptions import InvalidTimezoneError
 from python_util.time_utility.timezones import JST
 
 
-def test_now_without_tz_returns_jst_aware_datetime():
+def test_単体正常系_nowが_tzを指定せずに呼ばれた場合_JSTタイムゾーンのdatetimeを返す():
     result = now()
 
     assert result.tzinfo is JST
 
 
-def test_now_with_explicit_timezone_string_returns_that_timezone():
+def test_単体正常系_nowが_文字列でタイムゾーンを指定された場合_指定したタイムゾーンのdatetimeを返す():
     result = now(tz="UTC")
 
     assert result.tzinfo == ZoneInfo("UTC")
 
 
-def test_now_with_explicit_tzinfo_returns_same_tzinfo():
+def test_単体正常系_nowが_tzinfoオブジェクトを指定された場合_同じtzinfoを返す():
     tz = ZoneInfo("America/New_York")
 
     result = now(tz=tz)
@@ -31,11 +31,11 @@ def test_now_with_explicit_tzinfo_returns_same_tzinfo():
     assert result.tzinfo is tz
 
 
-def test_now_with_unsupported_type_raises_type_error():
+def test_異常系_nowが_サポート対象外の型を指定された場合_TypeErrorを送出する():
     with pytest.raises(TypeError):
         now(tz=123)
 
 
-def test_now_with_unknown_timezone_name_raises_invalid_timezone_error():
+def test_異常系_nowが_未知のタイムゾーン名を指定された場合_InvalidTimezoneErrorを送出する():
     with pytest.raises(InvalidTimezoneError):
         now(tz="Asia/Tokio")

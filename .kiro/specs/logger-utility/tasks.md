@@ -1,6 +1,6 @@
 # Implementation Plan
 
-- [ ] 1. Foundation: パッケージ雛形と共有型の定義
+- [x] 1. Foundation: パッケージ雛形と共有型の定義
 - [x] 1.1 パッケージ雛形と依存関係を整備する
   - `src/python_util/logging/` サブパッケージ（`__init__.py`, `types.py`, `config_loader.py`, `handlers.py`, `factory.py`）と `tests/logging/` の雛形ファイルを作成する
   - `pyproject.toml` の `requires-python` を `>=3.11` に設定し、`dependencies` に `rich` を追加する
@@ -14,7 +14,7 @@
   - _Requirements: 3.2, 3.3, 3.4, 4.1, 4.2, 5.1, 5.3_
   - _Depends: 1.1_
 
-- [ ] 2. Core: 設定読み込みとハンドラ構築
+- [x] 2. Core: 設定読み込みとハンドラ構築
 - [x] 2.1 (P) 呼び出し側pyproject.tomlの探索・解析を実装する
   - カレントワーキングディレクトリから親方向へ`pyproject.toml`を探索し、最初に見つかったファイルのみを採用する
   - `[tool.python_util.logging]`テーブルを`tomllib`で解析し、`level`/`file`/`console.enabled`/`console.level`/`file_level`/`loggers.<name>`を`LoggingConfig`へ変換する
@@ -35,7 +35,7 @@
   - _Boundary: Handler Builder_
   - _Depends: 1.2_
 
-- [ ] 3. Integration: get_logger ファサードの統合
+- [x] 3. Integration: get_logger ファサードの統合
 - [x] 3.1 get_logger の設定解決・ハンドラ接続を実装する
   - 名前省略時に呼び出し元モジュール名をデフォルト名として解決する
   - 設定をプロセス内で一度だけ読み込みキャッシュし、対象ロガー名に適用すべき出力先（グローバル設定 or `loggers`テーブルの個別上書き）を解決する
@@ -52,7 +52,7 @@
   - _Requirements: 4.3, 4.4_
   - _Depends: 3.1_
 
-- [ ] 4. Validation: 統合シナリオとフォールバック経路の検証
+- [x] 4. Validation: 統合シナリオとフォールバック経路の検証
 - [x] 4.1 複数モジュール構成での出力先統合・分離シナリオを検証する
   - 一時ディレクトリに`pyproject.toml`を用意し、複数のモジュール/クラス相当のロガーが単一ログファイルへ統合されるシナリオを検証する
   - 同じ一時プロジェクトで`loggers.<name>`による個別ファイル分離設定を行い、該当ロガーのみが指定ファイルに書き出されることを検証する

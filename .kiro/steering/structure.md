@@ -33,6 +33,11 @@ from python_util.logging import get_logger
 
 - モジュール非公開のヘルパー関数・内部例外は先頭アンダースコアを付ける（例: `_configure_logger`, `_InvalidLoggingConfig`）
 - サブパッケージの公開APIは `__init__.py` に集約し、内部モジュールを利用側に直接インポートさせない
+- コメント基準
+  - コードにはHowに該当する事柄を
+  - テストコードにはWhatに該当する事柄を
+  - コミットログにはWhyに該当する事柄を
+  - コードコメントにはWhy not「あえてやっていないこと」に該当する事柄を
 
 ---
 _2026-07-11: `logging`, `time_utility` の実装を踏まえて同期。サブパッケージ構成と公開APIパターンを実コードから反映。_

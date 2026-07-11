@@ -14,7 +14,7 @@ from python_util.time_utility.timezones import JST
 UTC = ZoneInfo("UTC")
 
 
-def test_ensure_aware_attaches_jst_by_default_to_naive_datetime():
+def test_単体正常系_ensure_awareが_naive状態のdatetimeを受け取った場合_デフォルトでJSTを付与する():
     naive = datetime(2026, 7, 11, 9, 0, 0)
 
     result = ensure_aware(naive)
@@ -23,7 +23,7 @@ def test_ensure_aware_attaches_jst_by_default_to_naive_datetime():
     assert (result.year, result.month, result.day, result.hour) == (2026, 7, 11, 9)
 
 
-def test_ensure_aware_returns_aware_datetime_unchanged():
+def test_単体正常系_ensure_awareが_aware状態のdatetimeを受け取った場合_変更せずそのまま返す():
     aware = datetime(2026, 7, 11, 9, 0, 0, tzinfo=UTC)
 
     result = ensure_aware(aware)
@@ -32,7 +32,7 @@ def test_ensure_aware_returns_aware_datetime_unchanged():
     assert result.tzinfo is UTC
 
 
-def test_ensure_aware_uses_explicit_default_tz_for_naive_datetime():
+def test_単体正常系_ensure_awareが_naive状態のdatetimeとdefault_tzを指定された場合_指定したタイムゾーンを付与する():
     naive = datetime(2026, 7, 11, 9, 0, 0)
 
     result = ensure_aware(naive, default_tz=UTC)
@@ -40,7 +40,7 @@ def test_ensure_aware_uses_explicit_default_tz_for_naive_datetime():
     assert result.tzinfo is UTC
 
 
-def test_ensure_aware_ignores_default_tz_for_already_aware_datetime():
+def test_単体正常系_ensure_awareが_aware状態のdatetimeとdefault_tzを指定された場合_default_tzを無視する():
     aware = datetime(2026, 7, 11, 9, 0, 0, tzinfo=UTC)
 
     result = ensure_aware(aware, default_tz=JST)
@@ -48,12 +48,12 @@ def test_ensure_aware_ignores_default_tz_for_already_aware_datetime():
     assert result.tzinfo is UTC
 
 
-def test_ensure_aware_raises_type_error_for_non_datetime():
+def test_異常系_ensure_awareが_datetime以外を受け取った場合_TypeErrorを送出する():
     with pytest.raises(TypeError):
         ensure_aware(None)
 
 
-def test_to_jst_converts_aware_datetime_preserving_instant():
+def test_単体正常系_to_jstが_aware状態のdatetimeを受け取った場合_同一時刻を保ったままJSTへ変換する():
     aware_utc = datetime(2026, 7, 11, 0, 0, 0, tzinfo=UTC)
 
     result = to_jst(aware_utc)
@@ -63,7 +63,7 @@ def test_to_jst_converts_aware_datetime_preserving_instant():
     assert result.hour == 9
 
 
-def test_to_jst_treats_naive_datetime_as_already_jst():
+def test_単体正常系_to_jstが_naive状態のdatetimeを受け取った場合_既にJSTとして扱う():
     naive = datetime(2026, 7, 11, 9, 0, 0)
 
     result = to_jst(naive)
@@ -72,12 +72,12 @@ def test_to_jst_treats_naive_datetime_as_already_jst():
     assert (result.year, result.month, result.day, result.hour) == (2026, 7, 11, 9)
 
 
-def test_to_jst_raises_type_error_for_non_datetime():
+def test_異常系_to_jstが_datetime以外を受け取った場合_TypeErrorを送出する():
     with pytest.raises(TypeError):
         to_jst(None)
 
 
-def test_to_utc_converts_naive_datetime_as_jst_interpreted_value():
+def test_単体正常系_to_utcが_naive状態のdatetimeを受け取った場合_JSTとして解釈しUTCへ変換する():
     naive = datetime(2026, 7, 11, 9, 0, 0)
 
     result = to_utc(naive)
@@ -88,7 +88,7 @@ def test_to_utc_converts_naive_datetime_as_jst_interpreted_value():
     assert result.day == 11
 
 
-def test_to_utc_converts_aware_datetime_preserving_instant():
+def test_単体正常系_to_utcが_aware状態のdatetimeを受け取った場合_同一時刻を保ったままUTCへ変換する():
     aware_jst = datetime(2026, 7, 11, 9, 0, 0, tzinfo=JST)
 
     result = to_utc(aware_jst)
@@ -98,12 +98,12 @@ def test_to_utc_converts_aware_datetime_preserving_instant():
     assert result.hour == 0
 
 
-def test_to_utc_raises_type_error_for_non_datetime():
+def test_異常系_to_utcが_datetime以外を受け取った場合_TypeErrorを送出する():
     with pytest.raises(TypeError):
         to_utc(None)
 
 
-def test_to_timezone_converts_to_specified_timezone_by_string_name():
+def test_単体正常系_to_timezoneが_文字列でタイムゾーンを指定された場合_指定したタイムゾーンへ変換する():
     aware_jst = datetime(2026, 7, 11, 9, 0, 0, tzinfo=JST)
 
     result = to_timezone(aware_jst, "America/New_York")
@@ -112,7 +112,7 @@ def test_to_timezone_converts_to_specified_timezone_by_string_name():
     assert result == aware_jst
 
 
-def test_to_timezone_treats_naive_datetime_as_jst_before_converting():
+def test_単体正常系_to_timezoneが_naive状態のdatetimeを受け取った場合_JSTとして解釈してから変換する():
     naive = datetime(2026, 7, 11, 9, 0, 0)
 
     result = to_timezone(naive, UTC)
@@ -121,19 +121,19 @@ def test_to_timezone_treats_naive_datetime_as_jst_before_converting():
     assert result.hour == 0
 
 
-def test_to_timezone_raises_invalid_timezone_error_for_unknown_name():
+def test_異常系_to_timezoneが_未知のタイムゾーン名を指定された場合_InvalidTimezoneErrorを送出する():
     aware_jst = datetime(2026, 7, 11, 9, 0, 0, tzinfo=JST)
 
     with pytest.raises(InvalidTimezoneError):
         to_timezone(aware_jst, "Asia/Tokio")
 
 
-def test_to_timezone_raises_type_error_for_non_datetime():
+def test_異常系_to_timezoneが_datetime以外を受け取った場合_TypeErrorを送出する():
     with pytest.raises(TypeError):
         to_timezone(None, UTC)
 
 
-def test_utc_to_jst_round_trip_preserves_original_aware_value():
+def test_結合_to_utcとto_jstが_aware状態のdatetimeを往復変換した場合_元の値を保つ():
     original = datetime(2026, 7, 11, 9, 0, 0, tzinfo=JST)
 
     round_tripped = to_jst(to_utc(original))
@@ -142,7 +142,7 @@ def test_utc_to_jst_round_trip_preserves_original_aware_value():
     assert round_tripped.tzinfo is JST
 
 
-def test_naive_datetime_round_trip_through_utc_and_back_to_jst_preserves_wall_clock():
+def test_結合_to_utcとto_jstが_naive状態のdatetimeを往復変換した場合_元の時刻表記を保つ():
     naive = datetime(2026, 7, 11, 9, 0, 0)
 
     round_tripped = to_jst(to_utc(naive))

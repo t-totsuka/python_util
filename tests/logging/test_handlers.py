@@ -8,7 +8,7 @@ from rich.logging import RichHandler
 from python_util.logging.handlers import build_console_handler, build_file_handler
 
 
-def test_build_console_handler_returns_rich_handler_with_level_and_formatter():
+def test_単体正常系_build_console_handlerが_ログレベルを受け取った場合_整形済みのRichHandlerを返す():
     handler = build_console_handler(logging.WARNING)
 
     assert isinstance(handler, RichHandler)
@@ -17,7 +17,7 @@ def test_build_console_handler_returns_rich_handler_with_level_and_formatter():
     assert handler.formatter._fmt == "%(message)s"
 
 
-def test_build_file_handler_creates_missing_directory(tmp_path):
+def test_単体正常系_build_file_handlerが_出力先ディレクトリが存在しない場合_ディレクトリを作成する(tmp_path):
     target = tmp_path / "logs" / "nested" / "app.log"
 
     handler = build_file_handler(target, logging.INFO)
@@ -28,7 +28,7 @@ def test_build_file_handler_creates_missing_directory(tmp_path):
     handler.close()
 
 
-def test_build_file_handler_appends_and_formats_with_time_level_name_message(tmp_path):
+def test_単体正常系_build_file_handlerが_ログ出力を受け取った場合_時刻レベル名メッセージ形式で追記する(tmp_path):
     target = tmp_path / "app.log"
 
     handler = build_file_handler(target, logging.DEBUG)
@@ -47,7 +47,7 @@ def test_build_file_handler_appends_and_formats_with_time_level_name_message(tmp
     assert "test_handlers.append" in content
 
 
-def test_build_file_handler_returns_none_and_warns_when_directory_creation_fails(
+def test_異常系_build_file_handlerが_ディレクトリ作成に失敗した場合_警告を出しNoneを返す(
     tmp_path,
 ):
     blocked = tmp_path / "blocked"
@@ -60,7 +60,7 @@ def test_build_file_handler_returns_none_and_warns_when_directory_creation_fails
     assert handler is None
 
 
-def test_console_and_file_handlers_have_independent_levels(tmp_path):
+def test_単体正常系_コンソールハンドラとファイルハンドラが_異なるレベルで構築された場合_互いに独立したレベルを保持する(tmp_path):
     console_handler = build_console_handler(logging.ERROR)
     file_handler = build_file_handler(tmp_path / "app.log", logging.DEBUG)
 

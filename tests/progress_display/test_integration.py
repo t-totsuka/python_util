@@ -13,7 +13,7 @@ def _silent_console() -> Console:
     return Console(file=io.StringIO())
 
 
-def test_multiple_tasks_progress_concurrently_and_finished_tasks_are_auto_removed():
+def test_結合_ProgressDisplayが_複数タスクを同時に進行させた場合_完了したタスクのみ自動削除される():
     config = ProgressDisplayConfig(auto_remove_finished=True)
 
     with ProgressDisplay(config=config, console=_silent_console()) as display:
@@ -39,7 +39,7 @@ def test_multiple_tasks_progress_concurrently_and_finished_tasks_are_auto_remove
         assert display._progress.tasks == []
 
 
-def test_track_helper_advances_progress_step_by_step_while_iterating():
+def test_結合_trackが_シーケンスを反復処理する場合_1要素ごとに進捗を進める():
     config = ProgressDisplayConfig(auto_remove_finished=True)
 
     with ProgressDisplay(config=config, console=_silent_console()) as display:
@@ -64,7 +64,7 @@ def test_track_helper_advances_progress_step_by_step_while_iterating():
         assert display._progress.tasks == []
 
 
-def test_display_is_cleaned_up_when_exception_raised_inside_with_block():
+def test_結合_ProgressDisplayが_withブロック内で例外が発生した場合_表示を後片付けし再利用できる():
     display = ProgressDisplay(console=_silent_console())
 
     class _SentinelError(Exception):

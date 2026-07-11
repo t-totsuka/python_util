@@ -19,7 +19,7 @@ def reset_factory_state():
     factory_module._reset_registry()
 
 
-def test_get_logger_uses_caller_module_name_when_name_omitted(monkeypatch):
+def test_単体正常系_get_loggerが_名前を省略された場合_呼び出し元モジュール名を使用する(monkeypatch):
     monkeypatch.setattr(factory_module, "load_config", lambda start_dir=None: LoggingConfig())
 
     logger = get_logger()
@@ -27,7 +27,7 @@ def test_get_logger_uses_caller_module_name_when_name_omitted(monkeypatch):
     assert logger.name == __name__
 
 
-def test_get_logger_uses_given_name(monkeypatch):
+def test_単体正常系_get_loggerが_名前を指定された場合_指定された名前を使用する(monkeypatch):
     monkeypatch.setattr(factory_module, "load_config", lambda start_dir=None: LoggingConfig())
 
     logger = get_logger("myapp.sample")
@@ -35,7 +35,7 @@ def test_get_logger_uses_given_name(monkeypatch):
     assert logger.name == "myapp.sample"
 
 
-def test_get_logger_attaches_console_handler_by_default(monkeypatch):
+def test_単体正常系_get_loggerが_設定なしで呼び出された場合_デフォルトでコンソールハンドラを付与する(monkeypatch):
     monkeypatch.setattr(factory_module, "load_config", lambda start_dir=None: LoggingConfig())
 
     logger = get_logger("myapp.console_only")
@@ -44,7 +44,7 @@ def test_get_logger_attaches_console_handler_by_default(monkeypatch):
     assert logger.propagate is False
 
 
-def test_get_logger_attaches_file_handler_when_file_configured(tmp_path, monkeypatch):
+def test_単体正常系_get_loggerが_ファイル出力が設定された場合_ファイルハンドラを付与する(tmp_path, monkeypatch):
     log_file = tmp_path / "app.log"
     config = LoggingConfig(file_path=log_file)
     monkeypatch.setattr(factory_module, "load_config", lambda start_dir=None: config)
@@ -57,7 +57,7 @@ def test_get_logger_attaches_file_handler_when_file_configured(tmp_path, monkeyp
     assert "hello file output" in log_file.read_text()
 
 
-def test_get_logger_writes_to_console_and_file_simultaneously(tmp_path, monkeypatch, capsys):
+def test_単体正常系_get_loggerが_コンソールとファイル両方が設定された場合_両方へ同時に出力する(tmp_path, monkeypatch, capsys):
     log_file = tmp_path / "app.log"
     config = LoggingConfig(file_path=log_file)
     monkeypatch.setattr(factory_module, "load_config", lambda start_dir=None: config)
@@ -70,7 +70,7 @@ def test_get_logger_writes_to_console_and_file_simultaneously(tmp_path, monkeypa
     assert "dual output message" in log_file.read_text()
 
 
-def test_get_logger_loads_config_only_once(monkeypatch):
+def test_単体正常系_get_loggerが_複数回呼び出された場合_設定読み込みは一度だけ行う(monkeypatch):
     calls: list[int] = []
 
     def fake_load_config(start_dir=None):
@@ -85,13 +85,13 @@ def test_get_logger_loads_config_only_once(monkeypatch):
     assert len(calls) == 1
 
 
-def test_get_logger_is_exported_as_public_api():
+def test_単体正常系_get_loggerが_パッケージ公開APIとして_エクスポートされている():
     from python_util.logging import get_logger as exported_get_logger
 
     assert exported_get_logger is get_logger
 
 
-def test_get_logger_does_not_duplicate_handlers_on_repeated_calls(monkeypatch):
+def test_単体正常系_get_loggerが_同じ名前で繰り返し呼び出された場合_ハンドラを重複させない(monkeypatch):
     monkeypatch.setattr(factory_module, "load_config", lambda start_dir=None: LoggingConfig())
 
     first = get_logger("myapp.repeated")
@@ -102,7 +102,7 @@ def test_get_logger_does_not_duplicate_handlers_on_repeated_calls(monkeypatch):
     assert len(second.handlers) == handler_count_after_first
 
 
-def test_get_logger_registers_handlers_once_under_concurrent_access(monkeypatch):
+def test_境界_get_loggerが_同じ名前で並行アクセスされた場合_ハンドラを一度だけ登録する(monkeypatch):
     monkeypatch.setattr(factory_module, "load_config", lambda start_dir=None: LoggingConfig())
 
     original_build_console_handler = factory_module.build_console_handler
@@ -129,7 +129,7 @@ def test_get_logger_registers_handlers_once_under_concurrent_access(monkeypatch)
     assert len(logger.handlers) == 1
 
 
-def test_get_logger_reused_logger_keeps_same_handlers(monkeypatch):
+def test_単体正常系_get_loggerが_既存ロガーを再取得した場合_同一のハンドラ一覧を保持する(monkeypatch):
     monkeypatch.setattr(factory_module, "load_config", lambda start_dir=None: LoggingConfig())
 
     first = get_logger("myapp.reuse")
@@ -148,7 +148,7 @@ def test_get_logger_reused_logger_keeps_same_handlers(monkeypatch):
         (logging.CRITICAL, logging.ERROR),
     ],
 )
-def test_get_logger_filters_messages_below_configured_level(
+def test_単体正常系_get_loggerが_設定レベル未満のメッセージを受け取った場合_出力から除外する(
     tmp_path, monkeypatch, configured_level, below_level
 ):
     log_file = tmp_path / "app.log"
@@ -166,7 +166,7 @@ def test_get_logger_filters_messages_below_configured_level(
     assert "below threshold message" not in content
 
 
-def test_console_and_file_apply_independent_levels(tmp_path, monkeypatch, capsys):
+def test_単体正常系_コンソールとファイルが_異なるレベルで設定された場合_それぞれ独立にフィルタする(tmp_path, monkeypatch, capsys):
     log_file = tmp_path / "app.log"
     config = LoggingConfig(
         file_path=log_file, console_level=logging.ERROR, file_level=logging.DEBUG

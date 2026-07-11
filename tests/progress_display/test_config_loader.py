@@ -13,7 +13,7 @@ def _write(path: Path, content: str) -> None:
     path.write_text(textwrap.dedent(content))
 
 
-def test_load_config_returns_default_when_no_pyproject_toml_found(tmp_path):
+def test_単体正常系_load_configが_pyproject_tomlが見つからない場合_デフォルト設定を返す(tmp_path):
     start_dir = tmp_path / "no_pyproject"
     start_dir.mkdir()
 
@@ -22,7 +22,7 @@ def test_load_config_returns_default_when_no_pyproject_toml_found(tmp_path):
     assert config == ProgressDisplayConfig()
 
 
-def test_load_config_returns_default_when_table_absent(tmp_path):
+def test_単体正常系_load_configが_設定テーブルが存在しない場合_デフォルト設定を返す(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [project]
         name = "sample"
@@ -33,7 +33,7 @@ def test_load_config_returns_default_when_table_absent(tmp_path):
     assert config == ProgressDisplayConfig()
 
 
-def test_load_config_parses_full_table(tmp_path):
+def test_単体正常系_load_configが_完全な設定テーブルを受け取った場合_値を解析して返す(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.progress_display]
         auto_remove_finished = true
@@ -46,7 +46,7 @@ def test_load_config_parses_full_table(tmp_path):
     assert config.refresh_per_second == 5.0
 
 
-def test_load_config_falls_back_on_toml_syntax_error(tmp_path):
+def test_異常系_load_configが_TOML構文エラーを含む場合_警告を出しデフォルト設定にフォールバックする(tmp_path):
     _write(tmp_path / "pyproject.toml", "this is not valid toml [[[")
 
     with pytest.warns(UserWarning):
@@ -55,7 +55,7 @@ def test_load_config_falls_back_on_toml_syntax_error(tmp_path):
     assert config == ProgressDisplayConfig()
 
 
-def test_load_config_falls_back_on_invalid_refresh_per_second(tmp_path):
+def test_異常系_load_configが_refresh_per_secondに0を指定された場合_警告を出しデフォルト設定にフォールバックする(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.progress_display]
         refresh_per_second = 0
@@ -67,7 +67,7 @@ def test_load_config_falls_back_on_invalid_refresh_per_second(tmp_path):
     assert config == ProgressDisplayConfig()
 
 
-def test_load_config_falls_back_on_negative_refresh_per_second(tmp_path):
+def test_異常系_load_configが_refresh_per_secondに負数を指定された場合_警告を出しデフォルト設定にフォールバックする(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.progress_display]
         refresh_per_second = -1.0
@@ -79,7 +79,7 @@ def test_load_config_falls_back_on_negative_refresh_per_second(tmp_path):
     assert config == ProgressDisplayConfig()
 
 
-def test_load_config_falls_back_on_invalid_type(tmp_path):
+def test_異常系_load_configが_auto_remove_finishedに不正な型を指定された場合_警告を出しデフォルト設定にフォールバックする(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.progress_display]
         auto_remove_finished = "yes"
@@ -91,7 +91,7 @@ def test_load_config_falls_back_on_invalid_type(tmp_path):
     assert config == ProgressDisplayConfig()
 
 
-def test_load_config_searches_parent_directories(tmp_path):
+def test_単体正常系_load_configが_開始ディレクトリにpyproject_tomlがない場合_親ディレクトリを探索して設定を読み込む(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.progress_display]
         auto_remove_finished = true
@@ -104,7 +104,7 @@ def test_load_config_searches_parent_directories(tmp_path):
     assert config.auto_remove_finished is True
 
 
-def test_load_config_only_considers_first_found_pyproject(tmp_path):
+def test_境界_load_configが_複数階層にpyproject_tomlが存在する場合_最初に見つかったファイルのみを考慮する(tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.progress_display]
         auto_remove_finished = true
@@ -121,7 +121,7 @@ def test_load_config_only_considers_first_found_pyproject(tmp_path):
     assert config == ProgressDisplayConfig()
 
 
-def test_load_config_defaults_start_dir_to_cwd(monkeypatch, tmp_path):
+def test_単体正常系_load_configが_start_dirを省略された場合_カレントディレクトリを起点に探索する(monkeypatch, tmp_path):
     _write(tmp_path / "pyproject.toml", """
         [tool.python_util.progress_display]
         auto_remove_finished = true

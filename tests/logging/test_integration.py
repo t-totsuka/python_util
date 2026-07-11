@@ -21,7 +21,7 @@ def reset_factory_state():
     factory_module._reset_registry()
 
 
-def test_multiple_modules_consolidate_into_single_log_file(tmp_path, monkeypatch):
+def test_結合_複数モジュールが_同一ファイル設定を共有する場合_単一のログファイルへ集約される(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     _write_pyproject(tmp_path, """
         [tool.python_util.logging]
@@ -41,7 +41,7 @@ def test_multiple_modules_consolidate_into_single_log_file(tmp_path, monkeypatch
     assert "message from module B" in content
 
 
-def test_logger_specific_override_separates_output_file(tmp_path, monkeypatch):
+def test_結合_特定ロガーにファイルオーバーライドが設定された場合_出力ファイルが分離される(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     _write_pyproject(tmp_path, """
         [tool.python_util.logging]
@@ -68,7 +68,7 @@ def test_logger_specific_override_separates_output_file(tmp_path, monkeypatch):
     assert "only in app log" not in module_a_content
 
 
-def test_console_and_file_output_both_receive_same_message(tmp_path, monkeypatch, capsys):
+def test_結合_ロガーが_コンソールとファイル両方に設定された場合_両方が同一メッセージを受け取る(tmp_path, monkeypatch, capsys):
     monkeypatch.chdir(tmp_path)
     _write_pyproject(tmp_path, """
         [tool.python_util.logging]
@@ -87,7 +87,7 @@ def test_console_and_file_output_both_receive_same_message(tmp_path, monkeypatch
     assert "dual output message" in console_output
 
 
-def test_log_level_filtering_applies_to_file_output(tmp_path, monkeypatch):
+def test_結合_ログレベルが設定された場合_ファイル出力にもレベルフィルタが適用される(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     _write_pyproject(tmp_path, """
         [tool.python_util.logging]

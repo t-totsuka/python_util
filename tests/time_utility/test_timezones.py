@@ -10,30 +10,30 @@ from python_util.time_utility.exceptions import InvalidTimezoneError
 from python_util.time_utility.timezones import JST, resolve_timezone
 
 
-def test_jst_is_asia_tokyo_zoneinfo():
+def test_単体正常系_JSTが_定義された場合_Asia_TokyoのZoneInfoと一致する():
     assert JST == ZoneInfo("Asia/Tokyo")
 
 
-def test_resolve_timezone_returns_jst_when_none():
+def test_単体正常系_resolve_timezoneが_Noneを受け取った場合_JSTを返す():
     assert resolve_timezone(None) is JST
 
 
-def test_resolve_timezone_returns_zoneinfo_for_valid_name():
+def test_単体正常系_resolve_timezoneが_有効なタイムゾーン名を受け取った場合_対応するZoneInfoを返す():
     assert resolve_timezone("UTC") == ZoneInfo("UTC")
 
 
-def test_resolve_timezone_returns_same_tzinfo_when_tzinfo_passed():
+def test_単体正常系_resolve_timezoneが_tzinfoオブジェクトを受け取った場合_同じtzinfoを返す():
     tz = ZoneInfo("America/New_York")
     assert resolve_timezone(tz) is tz
 
 
-def test_resolve_timezone_raises_invalid_timezone_error_for_unknown_name():
+def test_異常系_resolve_timezoneが_未知のタイムゾーン名を受け取った場合_InvalidTimezoneErrorを送出する():
     with pytest.raises(InvalidTimezoneError) as exc_info:
         resolve_timezone("Asia/Tokio")
 
     assert "Asia/Tokio" in str(exc_info.value)
 
 
-def test_resolve_timezone_raises_invalid_timezone_error_for_unsupported_type():
+def test_異常系_resolve_timezoneが_サポート対象外の型を受け取った場合_InvalidTimezoneErrorを送出する():
     with pytest.raises(InvalidTimezoneError):
         resolve_timezone(123)

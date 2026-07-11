@@ -22,30 +22,30 @@ class _PlainRecord:
         self.b = b
 
 
-def test_round_trip_dataclass_uses_eq() -> None:
+def test_単体正常系_encode_objectとdecode_objectが_dataclassインスタンスを受け取った場合_eq比較で等しい値を復元する() -> None:
     original = _Point(x=1, y="hello")
     decoded = decode_object(encode_object(original))
     assert decoded == original
 
 
-def test_round_trip_plain_class_compares_attributes() -> None:
+def test_単体正常系_encode_objectとdecode_objectが_通常クラスインスタンスを受け取った場合_型と属性値が一致する値を復元する() -> None:
     original = _PlainRecord(a=42, b="value")
     decoded = decode_object(encode_object(original))
     assert type(decoded) is type(original)
     assert vars(decoded) == vars(original)
 
 
-def test_encode_object_returns_str() -> None:
+def test_単体正常系_encode_objectが_オブジェクトを受け取った場合_str型を返す() -> None:
     encoded = encode_object(_Point(x=0, y=""))
     assert isinstance(encoded, str)
 
 
-def test_decode_object_rejects_non_str() -> None:
+def test_異常系_decode_objectが_str型以外を受け取った場合_TypeErrorを送出する() -> None:
     with pytest.raises(TypeError):
         decode_object(b"not str")  # type: ignore[arg-type]
 
 
-def test_encode_object_rejects_unpicklable_object() -> None:
+def test_異常系_encode_objectが_pickle不可能なオブジェクトを受け取った場合_ObjectPickleErrorを送出し元例外を保持する() -> None:
     def unpicklable() -> None:
         return None
 
