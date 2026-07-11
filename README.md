@@ -106,6 +106,48 @@ assert restored == Config(name="threshold", value=42)
 - 本コーデックが生成したものではない文字列や破損した文字列をデコードすると `BinaryStringDecodeError` を、pickle化できないオブジェクトを `encode_object` に渡すと `ObjectPickleError` を送出します（いずれも `ValueError` のサブクラス）。
 - `decode_object` は内部で `pickle.loads` 相当の処理を行うため、信頼できない発信元の文字列をデコードすると任意コード実行のリスクがあります。自身が `encode_object` で生成した信頼できる文字列のみをデコード対象としてください。
 
+### progress_display: richをラップした複数タスク進捗表示ユーティリティ
+
+`ProgressDisplay` はコンテキストマネージャとして使うことで、複数タスクの進捗を単一のコンソール表示領域にまとめて表示できます。
+
+```python
+from python_util.progress_display import ProgressDisplay
+
+with ProgressDisplay() as display:
+    download_task = display.add_task("ダウンロード", total=100.0)
+    convert_task = display.add_task("変換", total=50.0)
+
+    display.update(download_task, advance=10.0)   # 相対増分で進捗を更新
+    display.update(convert_task, completed=25.0)  # 絶対値で進捗を更新
+```
+
+イテラブルを処理しながら進捗を自動更新したい場合は `track()` を使います。
+
+```python
+from python_util.progress_display import ProgressDisplay
+
+with ProgressDisplay() as display:
+    for item in display.track(range(100), description="処理中"):
+        ...  # item を処理
+```
+
+- `add_task()` は一意な `TaskID` を返し、`total` に0以下の値を指定すると `InvalidTotalError` を送出します。
+- `update()` / `remove_task()` / `track()` に未知の `TaskID` を渡すと `UnknownTaskError` を送出します。
+- `with` ブロックの外側（未開始状態）でタスク操作を行うと `DisplayNotStartedError` を送出します（いずれも `ValueError` のサブクラス）。
+
+#### pyproject.toml による設定 (progress_display)
+
+呼び出し側プロジェクトの `pyproject.toml` に `[tool.python_util.progress_display]` を記述すると、完了タスクの自動非表示や表示更新頻度を制御できます。
+
+```toml
+[tool.python_util.progress_display]
+auto_remove_finished = true   # 完了したタスクを表示から自動的に取り除く（既定: false）
+refresh_per_second = 5.0      # 表示の更新頻度（既定: 10.0）
+```
+
+- `[tool.python_util.progress_display]` を記述しない場合は、デフォルト設定（自動非表示なし、更新頻度10回/秒）で動作します。
+- 設定ファイルの構文エラーや不正な値があっても例外は発生せず、警告を出したうえでデフォルト設定にフォールバックします。
+
 ## 開発
 
 ```bash
