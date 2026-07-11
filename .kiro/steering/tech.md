@@ -24,6 +24,7 @@
 - 公開関数には日本語の一行docstringを付け、モジュール冒頭にもモジュールの役割を一行docstringで記す
 - テストは pytest。`tests/` は `src/python_util/` の構成をミラーリングし、各ディレクトリに `__init__.py` を置く
 - lint/型チェッカーはruffを導入する
+- Task分解時の最後にREADME.mdの更新を追加すること
 
 ## 開発環境
 

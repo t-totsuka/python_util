@@ -1,6 +1,8 @@
 # Agentic SDLC and Spec-Driven Development
-
-Kiro-style Spec-Driven Development on an agentic SDLC
+- 必ず日本語で応対してください
+- 調査やデバッグにはサブエージェントを活用してコンテキストを節約してください
+- 重要な決定事項は定期的にマークダウンファイルに記録してください
+- Kiro-style Spec-Driven Development on an agentic SDLC
 
 ## Project Context
 
