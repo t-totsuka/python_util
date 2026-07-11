@@ -1,0 +1,27 @@
+[project]
+name = "python_util"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "takumi, Totsuka",email = "takumi.totsuka@gmail.com"},
+]
+dependencies = [
+    "rich>=13.0.0",
+    "tzdata>=2024.1; sys_platform == \"win32\"",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = true
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[dependency-groups]
+test = [
+    "pytest>=9.1.1",
+]
