@@ -31,7 +31,7 @@ def load_config(start_dir: Path | None = None) -> LoggingConfig:
 
     try:
         data = tomllib.loads(pyproject_path.read_text(encoding="utf-8"))
-    except tomllib.TOMLDecodeError as exc:
+    except (tomllib.TOMLDecodeError, UnicodeDecodeError) as exc:
         warnings.warn(f"{pyproject_path} の解析に失敗しました: {exc}")
         return LoggingConfig()
 
