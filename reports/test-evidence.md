@@ -2,8 +2,8 @@
 
 ## サマリ
 
-- 実行開始: 2026-07-13 22:06:18
-- 実行終了: 2026-07-13 22:06:19
+- 実行開始: 2026-07-13 22:14:02
+- 実行終了: 2026-07-13 22:14:02
 - 合計: 270件
 - 成功: 270件
 - 失敗: 0件
@@ -46,7 +46,7 @@
 | test_単体正常系_packとunpackが_任意のペイロード_圧縮有無_種別を受け取った場合_元のペイロードと圧縮フラグを復元する[1-False-\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~\x7f\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff] | 成功 | 0.000 |
 | test_単体正常系_packが_空ペイロードを受け取った場合_ヘッダー長以上のバイト列を返す | 成功 | 0.000 |
 | test_異常系_unpackが_マジックバイトが不一致のデータを受け取った場合_BinaryStringDecodeErrorを送出する | 成功 | 0.000 |
-| test_異常系_unpackが_バージョンが不一致のデータを受け取った場合_BinaryStringDecodeErrorを送出する | 成功 | 0.000 |
+| test_異常系_unpackが_バージョンが不一致のデータを受け取った場合_BinaryStringDecodeErrorを送出する | 成功 | 0.001 |
 | test_異常系_unpackが_予約済みフラグビットが非ゼロのデータを受け取った場合_BinaryStringDecodeErrorを送出する | 成功 | 0.000 |
 | test_異常系_unpackが_期待する種別と異なるデータを受け取った場合_BinaryStringDecodeErrorを送出する | 成功 | 0.000 |
 | test_単体正常系_BinaryStringDecodeErrorが_定義された場合_ValueErrorのサブクラスである | 成功 | 0.000 |
@@ -88,12 +88,12 @@
 | test_単体正常系_get_loggerが_名前を省略された場合_呼び出し元モジュール名を使用する | 成功 | 0.006 |
 | test_単体正常系_get_loggerが_名前を指定された場合_指定された名前を使用する | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_設定なしで呼び出された場合_デフォルトでコンソールハンドラを付与する | 成功 | 0.000 |
-| test_単体正常系_get_loggerが_ファイル出力が設定された場合_ファイルハンドラを付与する | 成功 | 0.003 |
+| test_単体正常系_get_loggerが_ファイル出力が設定された場合_ファイルハンドラを付与する | 成功 | 0.006 |
 | test_単体正常系_get_loggerが_コンソールとファイル両方が設定された場合_両方へ同時に出力する | 成功 | 0.001 |
 | test_単体正常系_get_loggerが_複数回呼び出された場合_設定読み込みは一度だけ行う | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_パッケージ公開APIとして_エクスポートされている | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_同じ名前で繰り返し呼び出された場合_ハンドラを重複させない | 成功 | 0.000 |
-| test_境界_get_loggerが_同じ名前で並行アクセスされた場合_ハンドラを一度だけ登録する | 成功 | 0.022 |
+| test_境界_get_loggerが_同じ名前で並行アクセスされた場合_ハンドラを一度だけ登録する | 成功 | 0.026 |
 | test_単体正常系_get_loggerが_既存ロガーを再取得した場合_同一のハンドラ一覧を保持する | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_設定レベル未満のメッセージを受け取った場合_出力から除外する[20-10] | 成功 | 0.001 |
 | test_単体正常系_get_loggerが_設定レベル未満のメッセージを受け取った場合_出力から除外する[30-20] | 成功 | 0.001 |
@@ -143,7 +143,7 @@
 | test_単体正常系_reset_config_cacheが_呼び出された場合_次回取得時に設定を再読み込みする | 成功 | 0.000 |
 | test_単体正常系_ProgressDisplayが_コンテキストに入る前の場合_開始状態でない | 成功 | 0.001 |
 | test_単体正常系_ProgressDisplayが_withブロックに入った場合_表示を開始する | 成功 | 0.001 |
-| test_単体正常系_ProgressDisplayが_withブロックを正常に抜けた場合_表示を停止する | 成功 | 0.002 |
+| test_単体正常系_ProgressDisplayが_withブロックを正常に抜けた場合_表示を停止する | 成功 | 0.001 |
 | test_異常系_ProgressDisplayが_withブロック内で例外が発生した場合_表示を停止する | 成功 | 0.001 |
 | test_単体正常系_ProgressDisplayが_カスタムカラムを渡された場合_カラムを保持する | 成功 | 0.000 |
 | test_単体正常系_ProgressDisplayが_カラムを指定されなかった場合_デフォルトカラムを使用する | 成功 | 0.000 |
@@ -155,18 +155,18 @@
 | test_単体正常系_add_taskが_複数回呼び出された場合_単一の表示に複数タスクを表示する | 成功 | 0.001 |
 | test_単体正常系_add_taskが_completedがtotalに到達しauto_remove_finishedが無効な場合_タスクを表示し続ける | 成功 | 0.001 |
 | test_単体正常系_add_taskが_completedがtotalに到達しauto_remove_finishedが有効な場合_タスクを自動的に削除する | 成功 | 0.001 |
-| test_異常系_updateが_表示開始前に呼び出された場合_DisplayNotStartedErrorを送出する | 成功 | 0.001 |
+| test_異常系_updateが_表示開始前に呼び出された場合_DisplayNotStartedErrorを送出する | 成功 | 0.000 |
 | test_異常系_updateが_未知のタスクIDを指定された場合_UnknownTaskErrorを送出する | 成功 | 0.001 |
 | test_単体正常系_updateが_completedを絶対値で指定された場合_即座に反映する | 成功 | 0.001 |
 | test_単体正常系_updateが_advanceを指定された場合_即座に加算して反映する | 成功 | 0.001 |
 | test_単体正常系_updateが_completedがtotalに到達した場合_タスクをfinished状態にする | 成功 | 0.001 |
 | test_単体正常系_updateが_completedがtotalに到達しauto_remove_finishedが無効な場合_タスクを表示し続ける | 成功 | 0.001 |
 | test_単体正常系_updateが_completedがtotalに到達しauto_remove_finishedが有効な場合_タスクを自動的に削除する | 成功 | 0.001 |
-| test_異常系_remove_taskが_表示開始前に呼び出された場合_DisplayNotStartedErrorを送出する | 成功 | 0.001 |
-| test_異常系_remove_taskが_未知のタスクIDを指定された場合_UnknownTaskErrorを送出する | 成功 | 0.005 |
+| test_異常系_remove_taskが_表示開始前に呼び出された場合_DisplayNotStartedErrorを送出する | 成功 | 0.000 |
+| test_異常系_remove_taskが_未知のタスクIDを指定された場合_UnknownTaskErrorを送出する | 成功 | 0.001 |
 | test_単体正常系_remove_taskが_既知のタスクIDを指定された場合_表示からタスクを削除する | 成功 | 0.001 |
 | test_単体正常系_remove_taskが_一つのタスクを削除した場合_他のタスクに影響しない | 成功 | 0.001 |
-| test_異常系_trackが_表示開始前に呼び出された場合_DisplayNotStartedErrorを送出する | 成功 | 0.001 |
+| test_異常系_trackが_表示開始前に呼び出された場合_DisplayNotStartedErrorを送出する | 成功 | 0.000 |
 | test_単体正常系_trackが_シーケンスを渡された場合_元の値をそのまま順に返す | 成功 | 0.001 |
 | test_単体正常系_trackが_要素を消費するたびに_進捗を1ずつ進める | 成功 | 0.001 |
 | test_単体正常系_trackが_totalを指定されなかった場合_シーケンスの長さをデフォルトのtotalとして使用する | 成功 | 0.001 |
@@ -206,23 +206,23 @@
 
 | テストメソッド名 | 結果 | 実行時間(秒) |
 |---|---|---|
-| test_結合_pytest_runtest_logreportが_callが成功しteardownが失敗した場合_FAILEDとして記録する | 成功 | 0.020 |
-| test_結合_pytest_runtest_logreportが_全フェーズ成功した場合_PASSEDとして記録する | 成功 | 0.016 |
+| test_結合_pytest_runtest_logreportが_callが成功しteardownが失敗した場合_FAILEDとして記録する | 成功 | 0.018 |
+| test_結合_pytest_runtest_logreportが_全フェーズ成功した場合_PASSEDとして記録する | 成功 | 0.021 |
 | test_結合_pytest_runtest_logreportが_スキップされた場合_SKIPPEDとして記録する | 成功 | 0.017 |
-| test_結合_pytest_runtest_logreportが_ネストしたpytesterセッション実行時_外側セッションの収集結果を汚染しない | 成功 | 0.016 |
+| test_結合_pytest_runtest_logreportが_ネストしたpytesterセッション実行時_外側セッションの収集結果を汚染しない | 成功 | 0.015 |
 | test_単体正常系_extract_subpackage_and_method_nameが_parametrizeされたnodeidを受け取った場合_接尾辞を保持したままmethod_nameを返す | 成功 | 0.000 |
-| test_結合_pytest_sessionstartが_セッション開始時_開始時刻をUTC日時として記録する | 成功 | 0.023 |
-| test_結合_pytest_sessionfinishが_セッション終了時_収集済みTestCaseResultからreports配下にMarkdownエビデンスを書き込む | 成功 | 0.029 |
-| test_結合_pytest_runtest_logreportが_parametrizeされたテストを実行した場合_パラメータ接尾辞を含むmethod_nameで記録する | 成功 | 0.017 |
-| test_結合_pytest_sessionfinishが_複数サブパッケージと失敗を含むスイート実行時_サブパッケージ別グルーピングと失敗一覧を含むMarkdownを生成する | 成功 | 0.022 |
+| test_結合_pytest_sessionstartが_セッション開始時_開始時刻をUTC日時として記録する | 成功 | 0.018 |
+| test_結合_pytest_sessionfinishが_セッション終了時_収集済みTestCaseResultからreports配下にMarkdownエビデンスを書き込む | 成功 | 0.016 |
+| test_結合_pytest_runtest_logreportが_parametrizeされたテストを実行した場合_パラメータ接尾辞を含むmethod_nameで記録する | 成功 | 0.018 |
+| test_結合_pytest_sessionfinishが_複数サブパッケージと失敗を含むスイート実行時_サブパッケージ別グルーピングと失敗一覧を含むMarkdownを生成する | 成功 | 0.020 |
 | test_単体正常系_InvalidReportDestinationErrorが_ValueErrorを継承している場合_ValueErrorとして送出できる | 成功 | 0.000 |
 | test_単体異常系_InvalidReportDestinationErrorが_不正な拡張子を受け取った場合_送出先を含むメッセージを保持する | 成功 | 0.000 |
 | test_単体正常系_render_markdown_reportが_複数サブパッケージのケースを受け取った場合_サブパッケージ単位で見出しをグルーピングして出力する | 成功 | 0.000 |
 | test_単体正常系_render_markdown_reportが_成功失敗スキップを含む場合_全体サマリに件数と実行開始終了時刻を出力する | 成功 | 0.000 |
 | test_単体正常系_render_markdown_reportが_失敗ケースを含む場合_専用セクションに失敗内容とともに明示する | 成功 | 0.000 |
 | test_単体境界_render_markdown_reportが_0件のTestRunReportを受け取った場合_有効なMarkdownを返す | 成功 | 0.000 |
-| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似成功コマンドに置換した場合_reports_test_evidence_mdをステージする | 成功 | 0.044 |
-| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似失敗コマンドに置換した場合_非0で終了しreports_test_evidence_mdをステージしない | 成功 | 0.035 |
+| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似成功コマンドに置換した場合_reports_test_evidence_mdをステージする | 成功 | 0.039 |
+| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似失敗コマンドに置換した場合_非0で終了しreports_test_evidence_mdをステージしない | 成功 | 0.033 |
 | test_単体正常系_test_evidenceパッケージが_importされた場合_公開APIをall属性として保持する | 成功 | 0.000 |
 | test_単体正常系_test_evidenceパッケージが_importされた場合_all属性に列挙した名前を実際に参照できる | 成功 | 0.000 |
 | test_単体正常系_write_markdown_reportが_有効な出力先を受け取った場合_render結果をファイルへ書き込む | 成功 | 0.001 |
@@ -258,7 +258,7 @@
 | test_異常系_to_utcが_datetime以外を受け取った場合_TypeErrorを送出する | 成功 | 0.000 |
 | test_単体正常系_to_timezoneが_文字列でタイムゾーンを指定された場合_指定したタイムゾーンへ変換する | 成功 | 0.000 |
 | test_単体正常系_to_timezoneが_naive状態のdatetimeを受け取った場合_JSTとして解釈してから変換する | 成功 | 0.000 |
-| test_異常系_to_timezoneが_未知のタイムゾーン名を指定された場合_InvalidTimezoneErrorを送出する | 成功 | 0.001 |
+| test_異常系_to_timezoneが_未知のタイムゾーン名を指定された場合_InvalidTimezoneErrorを送出する | 成功 | 0.000 |
 | test_異常系_to_timezoneが_datetime以外を受け取った場合_TypeErrorを送出する | 成功 | 0.000 |
 | test_結合_to_utcとto_jstが_aware状態のdatetimeを往復変換した場合_元の値を保つ | 成功 | 0.000 |
 | test_結合_to_utcとto_jstが_naive状態のdatetimeを往復変換した場合_元の時刻表記を保つ | 成功 | 0.000 |
@@ -296,7 +296,7 @@
 | test_結合_to_utcとto_jstが_nowの結果を往復変換した場合_元の値を保つ | 成功 | 0.000 |
 | test_異常系_now_to_timezone_parse_datetimeが_未知のタイムゾーン名を指定された場合_一貫してInvalidTimezoneErrorを送出する[<lambda>0] | 成功 | 0.000 |
 | test_異常系_now_to_timezone_parse_datetimeが_未知のタイムゾーン名を指定された場合_一貫してInvalidTimezoneErrorを送出する[<lambda>1] | 成功 | 0.000 |
-| test_異常系_now_to_timezone_parse_datetimeが_未知のタイムゾーン名を指定された場合_一貫してInvalidTimezoneErrorを送出する[<lambda>2] | 成功 | 0.000 |
+| test_異常系_now_to_timezone_parse_datetimeが_未知のタイムゾーン名を指定された場合_一貫してInvalidTimezoneErrorを送出する[<lambda>2] | 成功 | 0.001 |
 | test_単体正常系_time_utilityパッケージが_インポートされた場合_モジュールとして取得できる | 成功 | 0.000 |
 | test_単体正常系_time_utilityパッケージの公開APIが_ルートからインポートされた場合_全てのシンボルを取得できる | 成功 | 0.000 |
 | test_結合_time_utilityパッケージの再エクスポートされたシンボルが_往復変換に使用された場合_元の値を保つ | 成功 | 0.000 |
@@ -305,4 +305,4 @@
 | test_単体正常系_resolve_timezoneが_有効なタイムゾーン名を受け取った場合_対応するZoneInfoを返す | 成功 | 0.000 |
 | test_単体正常系_resolve_timezoneが_tzinfoオブジェクトを受け取った場合_同じtzinfoを返す | 成功 | 0.000 |
 | test_異常系_resolve_timezoneが_未知のタイムゾーン名を受け取った場合_InvalidTimezoneErrorを送出する | 成功 | 0.000 |
-| test_異常系_resolve_timezoneが_サポート対象外の型を受け取った場合_InvalidTimezoneErrorを送出する | 成功 | 0.001 |
+| test_異常系_resolve_timezoneが_サポート対象外の型を受け取った場合_InvalidTimezoneErrorを送出する | 成功 | 0.000 |
