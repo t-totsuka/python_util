@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+import python_util.progress_display.config_loader as config_loader_module
 from python_util.progress_display.config_loader import load_config
 from python_util.progress_display.types import ProgressDisplayConfig
 
@@ -152,3 +153,37 @@ def test_単体正常系_load_configが_start_dirを省略された場合_カレ
     config = load_config()
 
     assert config.auto_remove_finished is True
+
+
+def test_単体正常系_get_cached_configが_複数回呼び出された場合_設定読み込みは一度だけ行う(monkeypatch):
+    call_count = {"count": 0}
+
+    def _counting_load_config(start_dir=None):
+        call_count["count"] += 1
+        return ProgressDisplayConfig()
+
+    monkeypatch.setattr(config_loader_module, "_config_cache", None)
+    monkeypatch.setattr(config_loader_module, "load_config", _counting_load_config)
+
+    first = config_loader_module.get_cached_config()
+    second = config_loader_module.get_cached_config()
+
+    assert call_count["count"] == 1
+    assert first is second
+
+
+def test_単体正常系_reset_config_cacheが_呼び出された場合_次回取得時に設定を再読み込みする(monkeypatch):
+    call_count = {"count": 0}
+
+    def _counting_load_config(start_dir=None):
+        call_count["count"] += 1
+        return ProgressDisplayConfig()
+
+    monkeypatch.setattr(config_loader_module, "_config_cache", None)
+    monkeypatch.setattr(config_loader_module, "load_config", _counting_load_config)
+
+    config_loader_module.get_cached_config()
+    config_loader_module._reset_config_cache()
+    config_loader_module.get_cached_config()
+
+    assert call_count["count"] == 2

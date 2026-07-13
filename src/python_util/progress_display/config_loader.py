@@ -2,29 +2,22 @@
 
 from __future__ import annotations
 
-import tomllib
+import threading
 import warnings
 from pathlib import Path
 from typing import Any
 
+from python_util._pyproject import load_tool_table
 from python_util.progress_display.exceptions import _InvalidProgressDisplayConfig
 from python_util.progress_display.types import ProgressDisplayConfig
+
+_config_cache: ProgressDisplayConfig | None = None
+_config_cache_lock = threading.Lock()
 
 
 def load_config(start_dir: Path | None = None) -> ProgressDisplayConfig:
     """呼び出し側 pyproject.toml の設定テーブルを読み込み、失敗時はデフォルトにフォールバックする。"""
-    base_dir = start_dir if start_dir is not None else Path.cwd()
-    pyproject_path = _find_pyproject_toml(base_dir)
-    if pyproject_path is None:
-        return ProgressDisplayConfig()
-
-    try:
-        data = tomllib.loads(pyproject_path.read_text(encoding="utf-8"))
-    except (tomllib.TOMLDecodeError, UnicodeDecodeError) as exc:
-        warnings.warn(f"{pyproject_path} の解析に失敗しました: {exc}")
-        return ProgressDisplayConfig()
-
-    table = data.get("tool", {}).get("python_util", {}).get("progress_display")
+    table, pyproject_path = load_tool_table(start_dir, "progress_display")
     if table is None:
         return ProgressDisplayConfig()
 
@@ -35,15 +28,20 @@ def load_config(start_dir: Path | None = None) -> ProgressDisplayConfig:
         return ProgressDisplayConfig()
 
 
-def _find_pyproject_toml(start_dir: Path) -> Path | None:
-    current = start_dir
-    while True:
-        candidate = current / "pyproject.toml"
-        if candidate.is_file():
-            return candidate
-        if current.parent == current:
-            return None
-        current = current.parent
+def get_cached_config() -> ProgressDisplayConfig:
+    """load_config() の結果をプロセス内でキャッシュして返す。"""
+    global _config_cache
+    with _config_cache_lock:
+        if _config_cache is None:
+            _config_cache = load_config()
+        return _config_cache
+
+
+def _reset_config_cache() -> None:
+    """テスト用: 設定キャッシュをリセットする。"""
+    global _config_cache
+    with _config_cache_lock:
+        _config_cache = None
 
 
 def _parse_progress_display_table(table: dict[str, Any]) -> ProgressDisplayConfig:

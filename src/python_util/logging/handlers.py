@@ -25,7 +25,7 @@ def build_file_handler(path: Path, level: int) -> logging.Handler | None:
         warnings.warn(f"ログ出力先ディレクトリの作成に失敗しました: {path.parent} ({exc})")
         return None
 
-    handler = logging.FileHandler(path, mode="a")
+    handler = logging.FileHandler(path, mode="a", encoding="utf-8")
     handler.setLevel(level)
     handler.setFormatter(logging.Formatter(_FILE_FORMAT))
     return handler

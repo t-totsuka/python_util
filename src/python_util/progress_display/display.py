@@ -9,7 +9,7 @@ from types import TracebackType
 from rich.console import Console
 from rich.progress import Progress, ProgressColumn, ProgressType, Task, TaskID
 
-from python_util.progress_display.config_loader import load_config
+from python_util.progress_display.config_loader import get_cached_config
 from python_util.progress_display.exceptions import (
     DisplayNotStartedError,
     InvalidTotalError,
@@ -32,7 +32,7 @@ class ProgressDisplay:
         config: ProgressDisplayConfig | None = None,
         console: Console | None = None,
     ) -> None:
-        self._config = config if config is not None else load_config()
+        self._config = config if config is not None else get_cached_config()
         self._progress = Progress(
             *columns,
             console=console,
