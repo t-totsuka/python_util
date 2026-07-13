@@ -8,7 +8,8 @@ from pathlib import Path
 from typing import Any
 
 
-def find_pyproject_toml(start_dir: Path) -> Path | None:
+def _find_pyproject_toml(start_dir: Path) -> Path | None:
+    """start_dir から親方向に探索し、最初に見つかった pyproject.toml のパスを返す。"""
     current = start_dir
     while True:
         candidate = current / "pyproject.toml"
@@ -28,7 +29,7 @@ def load_tool_table(
     テーブルとして None を返す(読み取り失敗時は警告を発する)。
     """
     base_dir = start_dir if start_dir is not None else Path.cwd()
-    pyproject_path = find_pyproject_toml(base_dir)
+    pyproject_path = _find_pyproject_toml(base_dir)
     if pyproject_path is None:
         return None, None
 

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import threading
 import warnings
 from pathlib import Path
 from typing import Any
@@ -11,6 +12,7 @@ from python_util.progress_display.exceptions import _InvalidProgressDisplayConfi
 from python_util.progress_display.types import ProgressDisplayConfig
 
 _config_cache: ProgressDisplayConfig | None = None
+_config_cache_lock = threading.Lock()
 
 
 def load_config(start_dir: Path | None = None) -> ProgressDisplayConfig:
@@ -29,15 +31,17 @@ def load_config(start_dir: Path | None = None) -> ProgressDisplayConfig:
 def get_cached_config() -> ProgressDisplayConfig:
     """load_config() の結果をプロセス内でキャッシュして返す。"""
     global _config_cache
-    if _config_cache is None:
-        _config_cache = load_config()
-    return _config_cache
+    with _config_cache_lock:
+        if _config_cache is None:
+            _config_cache = load_config()
+        return _config_cache
 
 
 def _reset_config_cache() -> None:
     """テスト用: 設定キャッシュをリセットする。"""
     global _config_cache
-    _config_cache = None
+    with _config_cache_lock:
+        _config_cache = None
 
 
 def _parse_progress_display_table(table: dict[str, Any]) -> ProgressDisplayConfig:
