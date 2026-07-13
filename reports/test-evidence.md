@@ -2,8 +2,8 @@
 
 ## サマリ
 
-- 実行開始: 2026-07-12 07:19:23
-- 実行終了: 2026-07-12 07:19:23
+- 実行開始: 2026-07-13 21:37:20
+- 実行終了: 2026-07-13 21:37:20
 - 合計: 263件
 - 成功: 263件
 - 失敗: 0件
@@ -83,7 +83,7 @@
 | test_境界_load_configが_複数階層にpyproject_tomlが存在する場合_最初に見つかったもののみを考慮する | 成功 | 0.001 |
 | test_単体正常系_resolve_logger_overrideが_複数のプレフィックスに一致する場合_最長一致のオーバーライドを返す | 成功 | 0.000 |
 | test_単体正常系_resolve_logger_overrideが_一致するロガー名がない場合_Noneを返す | 成功 | 0.000 |
-| test_単体正常系_get_loggerが_名前を省略された場合_呼び出し元モジュール名を使用する | 成功 | 0.006 |
+| test_単体正常系_get_loggerが_名前を省略された場合_呼び出し元モジュール名を使用する | 成功 | 0.007 |
 | test_単体正常系_get_loggerが_名前を指定された場合_指定された名前を使用する | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_設定なしで呼び出された場合_デフォルトでコンソールハンドラを付与する | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_ファイル出力が設定された場合_ファイルハンドラを付与する | 成功 | 0.003 |
@@ -91,7 +91,7 @@
 | test_単体正常系_get_loggerが_複数回呼び出された場合_設定読み込みは一度だけ行う | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_パッケージ公開APIとして_エクスポートされている | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_同じ名前で繰り返し呼び出された場合_ハンドラを重複させない | 成功 | 0.000 |
-| test_境界_get_loggerが_同じ名前で並行アクセスされた場合_ハンドラを一度だけ登録する | 成功 | 0.026 |
+| test_境界_get_loggerが_同じ名前で並行アクセスされた場合_ハンドラを一度だけ登録する | 成功 | 0.025 |
 | test_単体正常系_get_loggerが_既存ロガーを再取得した場合_同一のハンドラ一覧を保持する | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_設定レベル未満のメッセージを受け取った場合_出力から除外する[20-10] | 成功 | 0.001 |
 | test_単体正常系_get_loggerが_設定レベル未満のメッセージを受け取った場合_出力から除外する[30-20] | 成功 | 0.001 |
@@ -110,7 +110,7 @@
 | test_結合_複数モジュールが_同一ファイル設定を共有する場合_単一のログファイルへ集約される | 成功 | 0.002 |
 | test_結合_特定ロガーにファイルオーバーライドが設定された場合_出力ファイルが分離される | 成功 | 0.002 |
 | test_結合_ロガーが_コンソールとファイル両方に設定された場合_両方が同一メッセージを受け取る | 成功 | 0.001 |
-| test_結合_ログレベルが設定された場合_ファイル出力にもレベルフィルタが適用される | 成功 | 0.001 |
+| test_結合_ログレベルが設定された場合_ファイル出力にもレベルフィルタが適用される | 成功 | 0.002 |
 | test_単体正常系_python_util_loggingパッケージが_インポートされた場合_モジュールを取得できる | 成功 | 0.000 |
 | test_単体正常系_loggingサブモジュール群が_インポートされた場合_いずれも取得できる | 成功 | 0.000 |
 | test_単体正常系_LoggingConfigが_デフォルト生成された場合_既定値を保持する | 成功 | 0.000 |
@@ -140,7 +140,7 @@
 | test_異常系_ProgressDisplayが_withブロック内で例外が発生した場合_表示を停止する | 成功 | 0.001 |
 | test_単体正常系_ProgressDisplayが_カスタムカラムを渡された場合_カラムを保持する | 成功 | 0.000 |
 | test_単体正常系_ProgressDisplayが_カラムを指定されなかった場合_デフォルトカラムを使用する | 成功 | 0.000 |
-| test_異常系_add_taskが_表示開始前に呼び出された場合_DisplayNotStartedErrorを送出する | 成功 | 0.000 |
+| test_異常系_add_taskが_表示開始前に呼び出された場合_DisplayNotStartedErrorを送出する | 成功 | 0.001 |
 | test_異常系_add_taskが_totalに0を指定された場合_InvalidTotalErrorを送出する | 成功 | 0.001 |
 | test_異常系_add_taskが_totalに負数を指定された場合_InvalidTotalErrorを送出する | 成功 | 0.001 |
 | test_単体正常系_add_taskが_複数回呼び出された場合_一意なタスクIDを返す | 成功 | 0.003 |
@@ -188,7 +188,7 @@
 | test_結合_ProgressDisplayが_withブロック内で例外が発生した場合_表示を後片付けし再利用できる | 成功 | 0.002 |
 | test_単体正常系_progress_displayパッケージが_公開APIとして_期待される名前をエクスポートする | 成功 | 0.000 |
 | test_結合_progress_displayのトップレベルAPIのみを使用した場合_一連のワークフローが完結する | 成功 | 0.001 |
-| test_結合_README記載の基本サンプルが_複数タスクを扱った場合_期待通りに動作する | 成功 | 0.002 |
+| test_結合_README記載の基本サンプルが_複数タスクを扱った場合_期待通りに動作する | 成功 | 0.003 |
 | test_結合_README記載のtrackヘルパーサンプルが_シーケンスを処理した場合_期待通りに動作する | 成功 | 0.001 |
 | test_結合_README記載のpyproject_toml設定サンプルが_読み込まれた場合_期待通りの設定値になる | 成功 | 0.001 |
 | test_単体正常系_ProgressDisplayConfigが_デフォルト値で生成された場合_期待されるデフォルト値を持つ | 成功 | 0.000 |
@@ -200,22 +200,22 @@
 | テストメソッド名 | 結果 | 実行時間(秒) |
 |---|---|---|
 | test_結合_pytest_runtest_logreportが_callが成功しteardownが失敗した場合_FAILEDとして記録する | 成功 | 0.019 |
-| test_結合_pytest_runtest_logreportが_全フェーズ成功した場合_PASSEDとして記録する | 成功 | 0.016 |
+| test_結合_pytest_runtest_logreportが_全フェーズ成功した場合_PASSEDとして記録する | 成功 | 0.015 |
 | test_結合_pytest_runtest_logreportが_スキップされた場合_SKIPPEDとして記録する | 成功 | 0.016 |
-| test_結合_pytest_runtest_logreportが_ネストしたpytesterセッション実行時_外側セッションの収集結果を汚染しない | 成功 | 0.018 |
+| test_結合_pytest_runtest_logreportが_ネストしたpytesterセッション実行時_外側セッションの収集結果を汚染しない | 成功 | 0.015 |
 | test_単体正常系_extract_subpackage_and_method_nameが_parametrizeされたnodeidを受け取った場合_接尾辞を保持したままmethod_nameを返す | 成功 | 0.000 |
 | test_結合_pytest_sessionstartが_セッション開始時_開始時刻をUTC日時として記録する | 成功 | 0.019 |
-| test_結合_pytest_sessionfinishが_セッション終了時_収集済みTestCaseResultからreports配下にMarkdownエビデンスを書き込む | 成功 | 0.016 |
-| test_結合_pytest_runtest_logreportが_parametrizeされたテストを実行した場合_パラメータ接尾辞を含むmethod_nameで記録する | 成功 | 0.017 |
-| test_結合_pytest_sessionfinishが_複数サブパッケージと失敗を含むスイート実行時_サブパッケージ別グルーピングと失敗一覧を含むMarkdownを生成する | 成功 | 0.021 |
+| test_結合_pytest_sessionfinishが_セッション終了時_収集済みTestCaseResultからreports配下にMarkdownエビデンスを書き込む | 成功 | 0.015 |
+| test_結合_pytest_runtest_logreportが_parametrizeされたテストを実行した場合_パラメータ接尾辞を含むmethod_nameで記録する | 成功 | 0.016 |
+| test_結合_pytest_sessionfinishが_複数サブパッケージと失敗を含むスイート実行時_サブパッケージ別グルーピングと失敗一覧を含むMarkdownを生成する | 成功 | 0.020 |
 | test_単体正常系_InvalidReportDestinationErrorが_ValueErrorを継承している場合_ValueErrorとして送出できる | 成功 | 0.000 |
 | test_単体異常系_InvalidReportDestinationErrorが_不正な拡張子を受け取った場合_送出先を含むメッセージを保持する | 成功 | 0.000 |
 | test_単体正常系_render_markdown_reportが_複数サブパッケージのケースを受け取った場合_サブパッケージ単位で見出しをグルーピングして出力する | 成功 | 0.000 |
 | test_単体正常系_render_markdown_reportが_成功失敗スキップを含む場合_全体サマリに件数と実行開始終了時刻を出力する | 成功 | 0.000 |
 | test_単体正常系_render_markdown_reportが_失敗ケースを含む場合_専用セクションに失敗内容とともに明示する | 成功 | 0.000 |
 | test_単体境界_render_markdown_reportが_0件のTestRunReportを受け取った場合_有効なMarkdownを返す | 成功 | 0.000 |
-| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似成功コマンドに置換した場合_reports_test_evidence_mdをステージする | 成功 | 0.046 |
-| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似失敗コマンドに置換した場合_非0で終了しreports_test_evidence_mdをステージしない | 成功 | 0.032 |
+| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似成功コマンドに置換した場合_reports_test_evidence_mdをステージする | 成功 | 0.045 |
+| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似失敗コマンドに置換した場合_非0で終了しreports_test_evidence_mdをステージしない | 成功 | 0.033 |
 | test_単体正常系_test_evidenceパッケージが_importされた場合_公開APIをall属性として保持する | 成功 | 0.000 |
 | test_単体正常系_test_evidenceパッケージが_importされた場合_all属性に列挙した名前を実際に参照できる | 成功 | 0.000 |
 | test_単体正常系_write_markdown_reportが_有効な出力先を受け取った場合_render結果をファイルへ書き込む | 成功 | 0.001 |
