@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 import logging
-import tomllib
 import warnings
 from pathlib import Path
 from typing import Any
 
+from python_util._pyproject import load_tool_table
 from python_util.logging.types import LoggerOverride, LoggingConfig
 
 _LEVEL_NAMES: dict[str, int] = {
@@ -24,18 +24,7 @@ class _InvalidLoggingConfig(Exception):
 
 
 def load_config(start_dir: Path | None = None) -> LoggingConfig:
-    base_dir = start_dir if start_dir is not None else Path.cwd()
-    pyproject_path = _find_pyproject_toml(base_dir)
-    if pyproject_path is None:
-        return LoggingConfig()
-
-    try:
-        data = tomllib.loads(pyproject_path.read_text(encoding="utf-8"))
-    except (tomllib.TOMLDecodeError, UnicodeDecodeError) as exc:
-        warnings.warn(f"{pyproject_path} の解析に失敗しました: {exc}")
-        return LoggingConfig()
-
-    table = data.get("tool", {}).get("python_util", {}).get("logging")
+    table, pyproject_path = load_tool_table(start_dir, "logging")
     if table is None:
         return LoggingConfig()
 
@@ -55,17 +44,6 @@ def resolve_logger_override(config: LoggingConfig, name: str) -> LoggerOverride 
     if best_match is None:
         return None
     return config.loggers[best_match]
-
-
-def _find_pyproject_toml(start_dir: Path) -> Path | None:
-    current = start_dir
-    while True:
-        candidate = current / "pyproject.toml"
-        if candidate.is_file():
-            return candidate
-        if current.parent == current:
-            return None
-        current = current.parent
 
 
 def _parse_level(value: Any) -> int:

@@ -47,6 +47,24 @@ def test_単体正常系_build_file_handlerが_ログ出力を受け取った場
     assert "test_handlers.append" in content
 
 
+def test_単体正常系_build_file_handlerが_非ASCII文字を出力した場合_ロケールに依存せずUTF8で書き込む(tmp_path):
+    target = tmp_path / "app.log"
+
+    handler = build_file_handler(target, logging.DEBUG)
+    logger = logging.getLogger("test_handlers.utf8")
+    logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
+    logger.propagate = False
+
+    logger.info("日本語と絵文字🚀を含むメッセージ")
+    handler.close()
+    logger.removeHandler(handler)
+
+    assert handler.encoding == "utf-8"
+    content = target.read_text(encoding="utf-8")
+    assert "日本語と絵文字🚀を含むメッセージ" in content
+
+
 def test_異常系_build_file_handlerが_ディレクトリ作成に失敗した場合_警告を出しNoneを返す(
     tmp_path,
 ):
