@@ -47,3 +47,7 @@
   - 観測可能な完了状態: 一時的な検証コミットのCI実行でジョブが失敗ステータスとなり、90%へ戻した後は成功することを確認する
   - _Requirements: 3.1, 3.2, 3.3_
   - _Depends: 2.1_
+
+## Implementation Notes
+
+- タスク3で`codecov/codecov-action@v5`の入力キーを`report-type`(ハイフン)と記述したが、実際の入力スキーマは`report_type`(アンダースコア)であり、GitHub Actions上で`Unexpected input(s) 'report-type'`という警告が発生し、テスト結果アップロードが`report_type`未指定の状態(既定のカバレッジアップロード扱い)で実行されていた。タスク4.1の実PR検証で発覚し、`report_type`へ修正した。ローカルのYAML構文チェックだけではこの種の「有効なYAMLだがアクションの入力スキーマとしては無効なキー」は検出できないため、CI設定タスクでは実際にワークフローを1度トリガーしてActionsのログ・Annotationsを確認するまでは完了とみなさないこと
