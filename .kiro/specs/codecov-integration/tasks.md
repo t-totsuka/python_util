@@ -9,8 +9,8 @@
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.6_
   - _Boundary: CI Workflow Definition_
 
-- [ ] 2. Core: テスト実行・カバレッジゲート・READMEバッジ
-- [ ] 2.1 (P) カバレッジ計測付きテスト実行とカバレッジしきい値ゲートを構築する
+- [x] 2. Core: テスト実行・カバレッジゲート・READMEバッジ
+- [x] 2.1 (P) カバレッジ計測付きテスト実行とカバレッジしきい値ゲートを構築する
   - `ci.yml`のテスト実行ステップで`pdm run pytest`にカバレッジXML出力(`--cov-report=xml`)・JUnit出力(`--junitxml=junit.xml`)・カバレッジしきい値(`--cov-fail-under=90`)を追加する
   - 既存`pyproject.toml`の`addopts`(html/term-missingレポート)はローカル開発用として変更しない
   - 観測可能な完了状態: 検証用ブランチでワークフローを実行し、`coverage.xml`と`junit.xml`が生成され、現状カバレッジ(約99%)ではテスト実行ステップが成功することを確認する
@@ -18,7 +18,7 @@
   - _Boundary: CI Workflow Definition_
   - _Depends: 1_
 
-- [ ] 2.2 (P) READMEにCodecovバッジを追加する
+- [x] 2.2 (P) READMEにCodecovバッジを追加する
   - README.mdのタイトル直下にCodecovのカバレッジバッジのMarkdown画像リンクを追加する
   - バッジ画像はapp.codecov.io上の当該リポジトリのカバレッジダッシュボードへのリンクを持つ
   - 観測可能な完了状態: README.mdをGitHub上でレンダリングした際にバッジ画像が表示され、クリックでapp.codecov.ioのダッシュボードへ遷移する

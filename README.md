@@ -1,5 +1,7 @@
 # python_util
 
+[![codecov](https://codecov.io/gh/t-totsuka/python_util/graph/badge.svg)](https://codecov.io/gh/t-totsuka/python_util)
+
 個人用の Python ユーティリティ集。特定のドメインに限定せず、日常的な開発作業を下支えする汎用的なヘルパー関数・スクリプトを蓄積していくライブラリです。
 
 ## インストール

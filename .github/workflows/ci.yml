@@ -21,3 +21,6 @@ jobs:
 
       - name: Install dependencies
         run: pdm install --group test
+
+      - name: Run tests with coverage
+        run: pdm run pytest --cov-report=xml --junitxml=junit.xml --cov-fail-under=90
