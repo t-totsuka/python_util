@@ -1,6 +1,6 @@
 [project]
 name = "python_util"
-version = "0.1.0"
+version = "202607.15.1"
 description = "Default template for PDM package"
 authors = [{ name = "takumi, Totsuka", email = "takumi.totsuka@gmail.com" }]
 dependencies = ["rich>=13.0.0", "tzdata>=2024.1; sys_platform == \"win32\""]
