@@ -5,6 +5,7 @@ from __future__ import annotations
 import inspect
 import logging
 import threading
+from pathlib import Path
 
 from python_util.logging.config_loader import load_config, resolve_logger_override
 from python_util.logging.handlers import build_console_handler, build_file_handler
@@ -12,6 +13,7 @@ from python_util.logging.types import LoggingConfig
 
 _configured_names: set[str] = set()
 _config_cache: LoggingConfig | None = None
+_file_handler_cache: dict[Path, logging.Handler] = {}
 _registry_lock = threading.Lock()
 
 
@@ -61,18 +63,48 @@ def _configure_logger(logger: logging.Logger, name: str) -> None:
         logger.addHandler(build_console_handler(console_level))
 
     if file_path is not None:
-        file_handler = build_file_handler(file_path, file_level)
+        file_handler = _get_file_handler(file_path, file_level, config)
         if file_handler is not None:
             logger.addHandler(file_handler)
 
 
+def _get_file_handler(
+    file_path: Path, file_level: int, config: LoggingConfig
+) -> logging.Handler | None:
+    """解決済み出力パス単位でファイルハンドラをキャッシュ・共有する。
+
+    同一パスに複数の`TimedRotatingFileHandler`インスタンスが載ると、
+    ローテーション実行後に後続インスタンスのストリームが退避済みファイルを
+    指し続け当日ログが前日の退避ファイルへ混入するため、この共有は正しさの
+    要件である（design.md Logger Factory参照）。
+    """
+    cached_handler = _file_handler_cache.get(file_path)
+    if cached_handler is not None:
+        return cached_handler
+
+    file_handler = build_file_handler(
+        file_path,
+        file_level,
+        rotation_enabled=config.rotation_enabled,
+        retention_days=config.retention_days,
+    )
+    if file_handler is not None:
+        _file_handler_cache[file_path] = file_handler
+    return file_handler
+
+
 def _reset_registry() -> None:
-    """テスト用: レジストリと設定キャッシュをリセットする。"""
+    """テスト用: レジストリ・設定キャッシュ・ファイルハンドラキャッシュをリセットする。"""
     global _config_cache
+    cached_handlers = set(_file_handler_cache.values())
     for name in list(_configured_names):
         logger = logging.getLogger(name)
         for handler in list(logger.handlers):
             logger.removeHandler(handler)
-            handler.close()
+            if handler not in cached_handlers:
+                handler.close()
+    for handler in cached_handlers:
+        handler.close()
     _configured_names.clear()
+    _file_handler_cache.clear()
     _config_cache = None
