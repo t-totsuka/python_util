@@ -71,6 +71,10 @@ def _parse_logging_table(table: dict[str, Any]) -> LoggingConfig:
             else None
         )
 
+        rotation_table = table.get("rotation", {})
+        rotation_enabled = _parse_rotation_enabled(rotation_table.get("enabled", True))
+        retention_days = _parse_retention_days(rotation_table.get("retention_days", 7))
+
         loggers = {
             name: _parse_logger_override(override_table)
             for name, override_table in table.get("loggers", {}).items()
@@ -84,8 +88,26 @@ def _parse_logging_table(table: dict[str, Any]) -> LoggingConfig:
         console_level=console_level,
         file_path=file_path,
         file_level=file_level,
+        rotation_enabled=rotation_enabled,
+        retention_days=retention_days,
         loggers=loggers,
     )
+
+
+def _parse_rotation_enabled(value: Any) -> bool:
+    if not isinstance(value, bool):
+        raise _InvalidLoggingConfig(
+            f"rotation.enabled は bool である必要があります: {value!r}"
+        )
+    return value
+
+
+def _parse_retention_days(value: Any) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+        raise _InvalidLoggingConfig(
+            f"rotation.retention_days は正の整数である必要があります: {value!r}"
+        )
+    return value
 
 
 def _parse_logger_override(override_table: dict[str, Any]) -> LoggerOverride:
