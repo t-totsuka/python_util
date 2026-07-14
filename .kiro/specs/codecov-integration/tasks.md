@@ -25,7 +25,7 @@
   - _Requirements: 4.1, 4.2_
   - _Boundary: README Badge_
 
-- [ ] 3. Integration: Codecovアップロードステップの統合
+- [x] 3. Integration: Codecovアップロードステップの統合
   - `ci.yml`に`codecov/codecov-action@v5`を用いたカバレッジアップロードステップ(`token: secrets.CODECOV_TOKEN`, `files: ./coverage.xml`, `fail_ci_if_error: true`)を追加する
   - 同様に`report-type: test_results`を指定したテスト結果アップロードステップ(`files: ./junit.xml`, `if: ${{ !cancelled() }}`, `fail_ci_if_error: true`)を追加する
   - 観測可能な完了状態: 検証用ブランチでのワークフロー実行後、app.codecov.io上に当該コミットのカバレッジレポートとテスト結果が反映される
