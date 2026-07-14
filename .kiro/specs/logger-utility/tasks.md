@@ -126,7 +126,7 @@
   - _Requirements: 6.1, 6.6, 7.1, 7.2, 7.3_
   - _Depends: 6.2_
 
-- [ ] 8. READMEにローテーション機能を記載する
+- [x] 8. READMEにローテーション機能を記載する
   - ローテーションが既定で有効になる挙動変更、退避ファイル名規則、`rotation.enabled` / `rotation.retention_days` の設定方法とオプトアウト手順をREADMEに追記する
   - READMEにrotation設定の説明が存在することを確認する
   - _Requirements: 6.1, 7.1, 7.2_
