@@ -1,6 +1,6 @@
 # Implementation Plan
 
-- [ ] 1. Foundation: 重複ワークフローの整理とCI骨格の構築
+- [x] 1. Foundation: 重複ワークフローの整理とCI骨格の構築
   - `.github/workflows/unit-test.yml`を削除する
   - `.github/workflows/ci.yml`を全面的に書き換え、`main`へのpushおよび`main`向けPRをトリガーとする
   - `actions/checkout`によるリポジトリのチェックアウトステップを、`pdm-project/setup-pdm`によるセットアップより前に配置する
