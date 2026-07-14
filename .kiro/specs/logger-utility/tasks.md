@@ -83,7 +83,7 @@
   - 設定なしで生成した `LoggingConfig` がローテーション有効・保持7日となることをテストで確認する
   - _Requirements: 6.1, 6.6_
 
-- [ ] 5.2 rotation設定テーブルの解析と検証を実装する
+- [x] 5.2 rotation設定テーブルの解析と検証を実装する
   - `[tool.python_util.logging.rotation]` の `enabled`（bool）と `retention_days`（正の整数）を解析して `LoggingConfig` へ反映する
   - `retention_days` に bool・0以下・非整数が指定された場合は不正値として扱い、既存パターンどおり `warnings.warn` で通知して設定全体をデフォルトへフォールバックする（結果としてローテーション有効・保持7日）
   - 正常値の反映、rotationテーブル不在時の既定値、不正値での警告とフォールバックをテストで確認する
@@ -130,4 +130,7 @@
   - ローテーションが既定で有効になる挙動変更、退避ファイル名規則、`rotation.enabled` / `rotation.retention_days` の設定方法とオプトアウト手順をREADMEに追記する
   - READMEにrotation設定の説明が存在することを確認する
   - _Requirements: 6.1, 7.1, 7.2_
-</content>
+
+## Implementation Notes
+
+- pre-commit フックは全テスト実行後に `reports/test-evidence.md` を自動再生成してステージするため、コミット時は同ファイルの未ステージ変更を残さないこと(残すと stash 競合でコミットが失敗する)
