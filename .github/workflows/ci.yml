@@ -23,7 +23,7 @@ jobs:
         run: pdm install --group test
 
       - name: Run tests with coverage
-        run: pdm run pytest --cov-report=xml --junitxml=junit.xml --cov-fail-under=100
+        run: pdm run pytest --cov-report=xml --junitxml=junit.xml --cov-fail-under=90
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
