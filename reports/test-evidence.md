@@ -2,8 +2,8 @@
 
 ## サマリ
 
-- 実行開始: 2026-07-15 09:01:04
-- 実行終了: 2026-07-15 09:01:05
+- 実行開始: 2026-07-15 09:01:25
+- 実行終了: 2026-07-15 09:01:26
 - 合計: 295件
 - 成功: 295件
 - 失敗: 0件
@@ -93,7 +93,7 @@
 | test_境界_load_configが_複数階層にpyproject_tomlが存在する場合_最初に見つかったもののみを考慮する | 成功 | 0.001 |
 | test_単体正常系_resolve_logger_overrideが_複数のプレフィックスに一致する場合_最長一致のオーバーライドを返す | 成功 | 0.000 |
 | test_単体正常系_resolve_logger_overrideが_一致するロガー名がない場合_Noneを返す | 成功 | 0.000 |
-| test_単体正常系_get_loggerが_名前を省略された場合_呼び出し元モジュール名を使用する | 成功 | 0.007 |
+| test_単体正常系_get_loggerが_名前を省略された場合_呼び出し元モジュール名を使用する | 成功 | 0.006 |
 | test_単体正常系_get_loggerが_名前を指定された場合_指定された名前を使用する | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_設定なしで呼び出された場合_デフォルトでコンソールハンドラを付与する | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_ファイル出力が設定された場合_ファイルハンドラを付与する | 成功 | 0.004 |
@@ -101,7 +101,7 @@
 | test_単体正常系_get_loggerが_複数回呼び出された場合_設定読み込みは一度だけ行う | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_パッケージ公開APIとして_エクスポートされている | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_同じ名前で繰り返し呼び出された場合_ハンドラを重複させない | 成功 | 0.000 |
-| test_境界_get_loggerが_同じ名前で並行アクセスされた場合_ハンドラを一度だけ登録する | 成功 | 0.026 |
+| test_境界_get_loggerが_同じ名前で並行アクセスされた場合_ハンドラを一度だけ登録する | 成功 | 0.027 |
 | test_単体正常系_get_loggerが_既存ロガーを再取得した場合_同一のハンドラ一覧を保持する | 成功 | 0.000 |
 | test_単体正常系_get_loggerが_設定レベル未満のメッセージを受け取った場合_出力から除外する[20-10] | 成功 | 0.002 |
 | test_単体正常系_get_loggerが_設定レベル未満のメッセージを受け取った場合_出力から除外する[30-20] | 成功 | 0.001 |
@@ -110,12 +110,12 @@
 | test_単体正常系_get_loggerが_同一ファイルへ統合された複数ロガーに対して_単一のファイルハンドラインスタンスを共有する | 成功 | 0.001 |
 | test_単体正常系_reset_registryが_ファイルハンドラキャッシュも破棄する | 成功 | 0.001 |
 | test_単体正常系_コンソールとファイルが_異なるレベルで設定された場合_それぞれ独立にフィルタする | 成功 | 0.001 |
-| test_結合_get_loggerが_pyproject_tomlが存在しない場合_コンソール出力のみにフォールバックする | 成功 | 0.002 |
+| test_結合_get_loggerが_pyproject_tomlが存在しない場合_コンソール出力のみにフォールバックする | 成功 | 0.001 |
 | test_異常系_get_loggerが_TOML構文エラーが存在する場合_警告を出しデフォルト設定にフォールバックする | 成功 | 0.001 |
 | test_異常系_get_loggerが_未知のログレベル文字列が設定された場合_警告を出しデフォルトレベルにフォールバックする | 成功 | 0.001 |
 | test_異常系_get_loggerが_不正なrotation設定を受け取った場合_警告を出しデフォルト設定にフォールバックする[retention_days\u304c\u30bc\u30ed] | 成功 | 0.001 |
 | test_異常系_get_loggerが_不正なrotation設定を受け取った場合_警告を出しデフォルト設定にフォールバックする[retention_days\u304cbool\u5024] | 成功 | 0.001 |
-| test_異常系_get_loggerが_ログディレクトリ作成に失敗した場合_警告を出しコンソール出力のみを継続する | 成功 | 0.001 |
+| test_異常系_get_loggerが_ログディレクトリ作成に失敗した場合_警告を出しコンソール出力のみを継続する | 成功 | 0.002 |
 | test_単体正常系_build_console_handlerが_ログレベルを受け取った場合_整形済みのRichHandlerを返す | 成功 | 0.000 |
 | test_単体正常系_build_file_handlerが_出力先ディレクトリが存在しない場合_ディレクトリを作成する | 成功 | 0.001 |
 | test_単体正常系_build_file_handlerが_ログ出力を受け取った場合_時刻レベル名メッセージ形式で追記する | 成功 | 0.001 |
@@ -127,13 +127,13 @@
 | test_単体正常系_namerが_デフォルト退避名を受け取った場合_stemハイフン日付拡張子の形式へ変換する | 成功 | 0.001 |
 | test_単体正常系_namerが_日付形式の文字列を含むファイル名を受け取った場合_末尾サフィックスのみを日付として扱う | 成功 | 0.001 |
 | test_結合正常系_ローテーション有効のハンドラが_日付境界を越えて書き込んだ場合_当日ファイルを日付付き退避ファイルへ移す | 成功 | 0.001 |
-| test_結合正常系_ローテーション有効のハンドラが_保持世代数を超えた場合_古い退避ファイルから削除する | 成功 | 0.001 |
+| test_結合正常系_ローテーション有効のハンドラが_保持世代数を超えた場合_古い退避ファイルから削除する | 成功 | 0.002 |
 | test_結合_複数モジュールが_同一ファイル設定を共有する場合_単一のログファイルへ集約される | 成功 | 0.002 |
 | test_結合_特定ロガーにファイルオーバーライドが設定された場合_出力ファイルが分離される | 成功 | 0.002 |
 | test_結合_ロガーが_コンソールとファイル両方に設定された場合_両方が同一メッセージを受け取る | 成功 | 0.002 |
 | test_結合_ログレベルが設定された場合_ファイル出力にもレベルフィルタが適用される | 成功 | 0.001 |
 | test_結合_日付変更を模擬した場合_当日ファイルが退避ファイルへ移り新しい当日ファイルへ書き込みが継続される | 成功 | 0.002 |
-| test_結合_保持世代数を超える退避ファイルが事前配置されている場合_古いものから削除される | 成功 | 0.003 |
+| test_結合_保持世代数を超える退避ファイルが事前配置されている場合_古いものから削除される | 成功 | 0.002 |
 | test_結合_複数モジュールが単一ファイルへ統合された構成で_日付変更後も新しい当日ファイルにのみ記録される | 成功 | 0.007 |
 | test_結合_rotation_enabledがfalseの場合_ローテーションが発生せず単一ファイルへ追記され続ける | 成功 | 0.002 |
 | test_結合_retention_daysが設定された場合_ファイルハンドラのbackupCountへ反映される | 成功 | 0.001 |
@@ -231,14 +231,14 @@
 
 | テストメソッド名 | 結果 | 実行時間(秒) |
 |---|---|---|
-| test_結合_pytest_runtest_logreportが_callが成功しteardownが失敗した場合_FAILEDとして記録する | 成功 | 0.021 |
-| test_結合_pytest_runtest_logreportが_全フェーズ成功した場合_PASSEDとして記録する | 成功 | 0.017 |
-| test_結合_pytest_runtest_logreportが_スキップされた場合_SKIPPEDとして記録する | 成功 | 0.016 |
-| test_結合_pytest_runtest_logreportが_ネストしたpytesterセッション実行時_外側セッションの収集結果を汚染しない | 成功 | 0.016 |
+| test_結合_pytest_runtest_logreportが_callが成功しteardownが失敗した場合_FAILEDとして記録する | 成功 | 0.020 |
+| test_結合_pytest_runtest_logreportが_全フェーズ成功した場合_PASSEDとして記録する | 成功 | 0.016 |
+| test_結合_pytest_runtest_logreportが_スキップされた場合_SKIPPEDとして記録する | 成功 | 0.015 |
+| test_結合_pytest_runtest_logreportが_ネストしたpytesterセッション実行時_外側セッションの収集結果を汚染しない | 成功 | 0.015 |
 | test_単体正常系_extract_subpackage_and_method_nameが_parametrizeされたnodeidを受け取った場合_接尾辞を保持したままmethod_nameを返す | 成功 | 0.000 |
-| test_結合_pytest_sessionstartが_セッション開始時_開始時刻をUTC日時として記録する | 成功 | 0.020 |
-| test_結合_pytest_sessionfinishが_セッション終了時_収集済みTestCaseResultからreports配下にMarkdownエビデンスを書き込む | 成功 | 0.017 |
-| test_結合_pytest_runtest_logreportが_parametrizeされたテストを実行した場合_パラメータ接尾辞を含むmethod_nameで記録する | 成功 | 0.016 |
+| test_結合_pytest_sessionstartが_セッション開始時_開始時刻をUTC日時として記録する | 成功 | 0.018 |
+| test_結合_pytest_sessionfinishが_セッション終了時_収集済みTestCaseResultからreports配下にMarkdownエビデンスを書き込む | 成功 | 0.016 |
+| test_結合_pytest_runtest_logreportが_parametrizeされたテストを実行した場合_パラメータ接尾辞を含むmethod_nameで記録する | 成功 | 0.017 |
 | test_結合_pytest_sessionfinishが_複数サブパッケージと失敗を含むスイート実行時_サブパッケージ別グルーピングと失敗一覧を含むMarkdownを生成する | 成功 | 0.020 |
 | test_単体正常系_InvalidReportDestinationErrorが_ValueErrorを継承している場合_ValueErrorとして送出できる | 成功 | 0.000 |
 | test_単体異常系_InvalidReportDestinationErrorが_不正な拡張子を受け取った場合_送出先を含むメッセージを保持する | 成功 | 0.000 |
@@ -246,8 +246,8 @@
 | test_単体正常系_render_markdown_reportが_成功失敗スキップを含む場合_全体サマリに件数と実行開始終了時刻を出力する | 成功 | 0.000 |
 | test_単体正常系_render_markdown_reportが_失敗ケースを含む場合_専用セクションに失敗内容とともに明示する | 成功 | 0.000 |
 | test_単体境界_render_markdown_reportが_0件のTestRunReportを受け取った場合_有効なMarkdownを返す | 成功 | 0.000 |
-| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似成功コマンドに置換した場合_reports_test_evidence_mdをステージする | 成功 | 0.044 |
-| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似失敗コマンドに置換した場合_非0で終了しreports_test_evidence_mdをステージしない | 成功 | 0.035 |
+| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似成功コマンドに置換した場合_reports_test_evidence_mdをステージする | 成功 | 0.050 |
+| test_結合_pre_commit_config_yamlのフックentryが_pdm_run_pytestを疑似失敗コマンドに置換した場合_非0で終了しreports_test_evidence_mdをステージしない | 成功 | 0.033 |
 | test_単体正常系_test_evidenceパッケージが_importされた場合_公開APIをall属性として保持する | 成功 | 0.000 |
 | test_単体正常系_test_evidenceパッケージが_importされた場合_all属性に列挙した名前を実際に参照できる | 成功 | 0.000 |
 | test_単体正常系_write_markdown_reportが_有効な出力先を受け取った場合_render結果をファイルへ書き込む | 成功 | 0.001 |
